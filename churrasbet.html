@@ -289,7 +289,15 @@ nav button.active{color:var(--ouro);border-bottom-color:var(--dourado)}
       </div>
       <button class="btn btn-p btn-block" onclick="saveResult()">✔ Salvar Resultado</button>
     </div>
-    <div class="sec">⚠️ Zona Perigosa</div>
+    <div class="sec">✏️ Palpite Manual</div>
+    <div class="card">
+      <div class="fg"><label>Participante</label><select id="adm-pal-user" style="width:100%;background:var(--fumo);border:1px solid #4A3325;border-radius:6px;color:var(--branco);font-family:Barlow,sans-serif;font-size:0.86rem;padding:8px 10px;outline:none"></select></div>
+      <div class="fg"><label>Jogo</label><select id="adm-pal-jogo" style="width:100%;background:var(--fumo);border:1px solid #4A3325;border-radius:6px;color:var(--branco);font-family:Barlow,sans-serif;font-size:0.86rem;padding:8px 10px;outline:none"></select></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0"><input type="number" min="0" max="30" value="0" id="adm-pal-a" class="pnum" style="width:58px"><span class="psep">x</span><input type="number" min="0" max="30" value="0" id="adm-pal-b" class="pnum" style="width:58px"></div>
+      <button class="btn btn-p btn-block" onclick="adminSavePalpiteManual()">💾 Salvar Palpite</button>
+      <div id="adm-pal-msg" style="text-align:center;font-size:0.75rem;color:#4CAF50;margin-top:5px"></div>
+    </div>
+        <div class="sec">⚠️ Zona Perigosa</div>
     <div class="card">
       <div class="fg">
         <label>Nova senha admin (deixe vazio para manter)</label>
@@ -342,6 +350,16 @@ nav button.active{color:var(--ouro);border-bottom-color:var(--dourado)}
       <button class="btn btn-d" id="mc-ok">Confirmar</button>
     </div>
   </div>
+<div id="modal-userbets" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:2000;overflow-y:auto;padding:20px">
+  <div style="background:var(--carvao2);border:1px solid var(--fumo);border-radius:12px;max-width:480px;margin:0 auto;padding:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div id="ubets-title" style="font-family:Bebas Neue,sans-serif;font-size:1.3rem;color:var(--ouro);letter-spacing:2px"></div>
+      <button onclick="closeUserBets()" style="background:none;border:none;color:var(--cinza);cursor:pointer;font-size:1.2rem;padding:4px 8px">X</button>
+    </div>
+    <div id="ubets-ranking" style="margin-bottom:14px"></div>
+    <div id="ubets-list"></div>
+  </div>
+</div>
 </div>
 <div id="toast"></div>
 <script>
@@ -465,6 +483,7 @@ const SEED_PALPITES = [
   {userId:'u_netomargraf',jogoId:'A2', a:2, b:1},
   {userId:'u_miguel',     jogoId:'A1', a:2, b:2},
   {userId:'u_miguel',     jogoId:'A2', a:2, b:1},
+  {userId:'u_miguel',     jogoId:'B1', a:2, b:2},
   {userId:'u_gabriel',    jogoId:'A1', a:1, b:0},
   {userId:'u_gabriel',    jogoId:'A2', a:2, b:1},
 ];
@@ -675,7 +694,7 @@ function renderRanking() {
     .sort((a,b)=>b.pts-a.pts||b.ex-a.ex||b.ac-a.ac);
   const pc=['rk-gold','rk-silver','rk-bronze'];
   el.innerHTML=list.map((u,i)=>`
-    <div class="rk-item">
+    <div class="rk-item" style="cursor:pointer" onclick="showUserBets('${u.id}')">
       <div class="rk-pos ${pc[i]||''}">${i===0?'🏆':i+1}</div>
       <div class="rk-av" style="background:${u.color}22;border-color:${u.color}">${u.emoji}</div>
       <div class="rk-info">
@@ -824,6 +843,7 @@ function savePalpite(uid, jogoId) {
 function renderAdmin() {
   renderAdminChips();
   populateAdminJogoSelect();
+  populateAdmPalSelects();
 }
 function renderAdminChips() {
   const el=document.getElementById('users-chips');
@@ -932,6 +952,10 @@ function showConfirm(t,m,cb){
   document.getElementById('mc-ok').onclick=()=>{closeModal();if(_cb)_cb();};
   document.getElementById('modal-confirm').classList.add('open');
 }
+function showUserBets(uid){const u=cacheUsers.find(x=>x.id===uid);if(!u)return;const stats=userStats(uid);document.getElementById('ubets-title').innerHTML=u.emoji+' '+escH(u.name);const list=cacheUsers.map(x=>({...x,...userStats(x.id)})).sort((a,b)=>b.pts-a.pts||b.ex-a.ex||b.ac-a.ac);const pos=list.findIndex(x=>x.id===uid)+1;const pc=['#FFD700','#C0C0C0','#CD7F32'];const posCol=pc[pos-1]||'var(--cinza)';document.getElementById('ubets-ranking').innerHTML='<div style="text-align:center;padding:8px 0;border-bottom:1px solid var(--fumo);margin-bottom:8px"><span style="font-family:Bebas Neue,sans-serif;font-size:2rem;color:var(--ouro)">'+stats.pts+'</span><span style="font-size:0.7rem;color:var(--cinza)"> pts</span>   <span style="font-family:Bebas Neue,sans-serif;font-size:1.1rem;color:'+posCol+'">#'+pos+'º</span>   <span style="font-size:0.72rem;color:var(--cinza)">'+stats.ex+' exatos · '+stats.ac+' acertos · '+stats.jg+' palpites</span></div>';let html='';JOGOS.forEach(j=>{const p=cachePalpites[uid+'_'+j.id];if(!p)return;const r=cacheResults[j.id];const enc=isEncerrado(j);let pts='',cls='ptnd';if(enc&&r){const sc=calcPts(p.a,p.b,r.a,r.b);pts=sc===5?'5':sc===3?'3':sc===1?'1':'0';cls=sc===5?'pt5':sc===3?'pt3':sc===1?'pt1':'pt0';}html+='<div class="prow"><span>'+getFlag(j.ta)+'</span><span class="puser">'+escH(stripFlag(j.ta))+' x '+escH(stripFlag(j.tb))+'</span><span class="pplc">'+p.a+' x '+p.b+'</span>'+(enc&&r?'<span class="ppts '+cls+'">'+pts+'</span>':'')+'</div>';});document.getElementById('ubets-list').innerHTML=html||'<p style="text-align:center;color:var(--cinza);font-size:0.8rem">Nenhum palpite ainda</p>';document.getElementById('modal-userbets').style.display='block';}
+function closeUserBets(){document.getElementById('modal-userbets').style.display='none';}
+function adminSavePalpiteManual(){if(!isAdmin)return;const uid=document.getElementById('adm-pal-user').value;const jid=document.getElementById('adm-pal-jogo').value;const a=parseInt(document.getElementById('adm-pal-a').value)||0;const b=parseInt(document.getElementById('adm-pal-b').value)||0;const msg=document.getElementById('adm-pal-msg');if(!uid||!jid){msg.style.color='#FF5252';msg.textContent='Selecione participante e jogo!';return;}db.collection('chb_palpites').doc(uid+'_'+jid).set({userId:uid,jogoId:jid,a,b,savedAt:firebase.firestore.FieldValue.serverTimestamp()}).then(()=>{msg.style.color='#4CAF50';msg.textContent='Palpite salvo!';setTimeout(()=>msg.textContent='',3000);}).catch(e=>{msg.style.color='#FF5252';msg.textContent='Erro: '+e.message;});}
+function populateAdmPalSelects(){if(!isAdmin)return;const uSel=document.getElementById('adm-pal-user');const jSel=document.getElementById('adm-pal-jogo');if(!uSel||!jSel)return;uSel.innerHTML='<option value="">-- Participante --</option>'+cacheUsers.map(u=>'<option value="'+u.id+'">'+u.emoji+' '+escH(u.name)+'</option>').join('');jSel.innerHTML='<option value="">-- Jogo --</option>'+JOGOS.map(j=>'<option value="'+j.id+'">'+j.id+': '+escH(stripFlag(j.ta))+' x '+escH(stripFlag(j.tb))+'</option>').join('');}
 function closeModal(){document.getElementById('modal-confirm').classList.remove('open')}
 </script>
 </body>
