@@ -624,15 +624,8 @@ function startListeners() {
       populateAdminJogoSelect();
     });
   let pQuery = db.collection('chb_palpites');
-  if (!isAdmin && currentUser.id !== '__admin__') {
-    pQuery = pQuery.where('userId','==', currentUser.id);
-  }
   unsub_palpites = pQuery.onSnapshot(snap => {
-    if (!isAdmin) {
-      Object.keys(cachePalpites).forEach(k => { if(k.startsWith(currentUser.id+'_')) delete cachePalpites[k]; });
-    } else {
-      cachePalpites = {};
-    }
+    cachePalpites = {};
     snap.docs.forEach(d => {
       const data = d.data();
       cachePalpites[data.userId+'_'+data.jogoId] = {a:data.a, b:data.b};
