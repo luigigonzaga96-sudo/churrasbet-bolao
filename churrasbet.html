@@ -1,60 +1,4 @@
-
-  // ── Mata-a-Mata ──
-  if (cacheMmJogos.length) {
-    html += '<div class="sec">⚽ Mata-a-Mata</div>';
-    cacheMmJogos.forEach(j => {
-      const enc = !!(cacheMmResults[j.id]);
-      const r   = cacheMmResults[j.id] || null;
-      const p   = cachePalpites[uid + '_mm_' + j.id];
-      html += '<div class="jcard' + (enc ? ' locked' : '') + '">';
-      html += '<div class="jhead"><span class="jrodada">' + escH(j.fase || 'Mata-a-Mata') + '</span><span class="jdt">' + fmtDT(j) + '</span>';
-      html += enc ? '<span class=\"jpill sp-d\">Encerrado</span>' : '<span class=\"jpill sp-l\">Aberto</span>';
-      html += '</div>';
-      html += '<div class="jplacar">';
-      html += '<div class="jtime"><div class="jflag">' + getFlag(j.ta) + '</div><div class="jnome">' + escH(stripFlag(j.ta)) + '</div></div>';
-      html += '<div class="jmid">';
-      html += r ? '<div class="jresult">' + r.a + ' — ' + r.b + '</div>' : '<div class="jvs">VS</div>';
-      html += '</div>';
-      html += '<div class="jtime"><div class="jflag">' + getFlag(j.tb) + '</div><div class="jnome">' + escH(stripFlag(j.tb)) + '</div></div>';
-      html += '</div>';
-      if (!enc) {
-        const va = p ? p.a : '', vb = p ? p.b : '';
-        html += '<div class=\"pinwrap\"><input class=\"pnum\" id=\"mpa-' + j.id + '\" type=\"number\" min=\"0\" max=\"20\" value=\"' + va + '\" placeholder=\"-\"><span class=\"psep\">x</span><input class=\"pnum\" id=\"mpb-' + j.id + '\" type=\"number\" min=\"0\" max=\"20\" value=\"' + vb + '\" placeholder=\"-\"></div>';
-        html += '<button class=\"btn btn-p btn-block\" onclick=\"saveMmPalpite(\\\'' + j.id + '\\\')\">Salvar Palpite</button>';
-        if (p) html += '<div class=\"psaved\">✓ Palpite salvo: ' + p.a + ' x ' + p.b + '</div>';
-      } else if (p) {
-        const sc = r ? calcPts(p.a, p.b, r.a, r.b) : 0;
-        const cl = sc===5?'pt5':sc===3?'pt3':sc===1?'pt1':'pt0';
-        html += '<div class=\"prow\"><span class=\"puser\">Seu palpite:</span><span class=\"pplc\">' + p.a + ' x ' + p.b + '</span>' + (r ? '<span class=\"ppts ' + cl + '\">' + sc + ' pts</span>' : '') + '</div>';
-      } else {
-        html += '<div class=\"plocked\">Prazo encerrado — sem palpite</div>';
-      }
-      html += '</div>';
-    });
-  }
-  
-    <div class="card">
-      <div class="sec">⚽ Mata-a-Mata / Jogos Extras</div>
-      <div id="mm-jogos-admin"><p style="color:var(--cinza);font-size:.8rem">Nenhum jogo cadastrado.</p></div>
-      <div class="div"></div>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza);margin-bottom:8px">➕ Novo Jogo</p>
-      <div class="fg"><label>Fase</label><input id="mm-fase" type="text" class="linput" placeholder="Oitavas, Quartas, Semi…"></div>
-      <div class="fg"><label>Time A</label><input id="mm-ta" type="text" class="linput" placeholder="Brasil 🇧🇷"></div>
-      <div class="fg"><label>Time B</label><input id="mm-tb" type="text" class="linput" placeholder="Argentina 🇦🇷"></div>
-      <div class="fg"><label>Data e Hora (horário local)</label><input id="mm-dt" type="datetime-local" class="linput"></div>
-      <button class="btn btn-p btn-block" onclick="saveMmJogo()">Salvar Jogo</button>
-      <div class="div"></div>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza);margin-bottom:8px">✅ Registrar Resultado MM</p>
-      <div class="fg"><label>Jogo</label><select id="sel-mm-jogo" class="linput" onchange="previewMmJogo()"><option value="">Escolha um jogo MM</option></select></div>
-      <div id="mm-result-preview" style="display:none">
-        <div class="jplacar" style="margin:8px 0">
-          <div class="jtime"><div class="jflag" id="mm-prev-a"></div></div>
-          <div class="jmid"><div class="pinwrap"><input class="pnum" id="mm-res-a" type="number" min="0" max="20" value="0"><span class="psep">x</span><input class="pnum" id="mm-res-b" type="number" min="0" max="20" value="0"></div></div>
-          <div class="jtime"><div class="jflag" id="mm-prev-b"></div></div>
-        </div>
-        <button class="btn btn-p btn-block" onclick="saveMmResult()">💾 Salvar Resultado MM</button>
-      </div>
-    </div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -346,6 +290,28 @@ nav button.active{color:var(--ouro);border-bottom-color:var(--dourado)}
       <button class="btn btn-p btn-block" onclick="saveResult()">â Salvar Resultado</button>
     </div>
     <div class="sec">âï¸ Palpite Manual</div>
+    <div class="card">
+      <div class="sec">&#9917; Mata-a-Mata / Jogos Extras</div>
+      <div id="mm-jogos-admin"><p style="color:var(--cinza);font-size:.8rem">Nenhum jogo cadastrado.</p></div>
+      <div class="div"></div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza);margin-bottom:8px">Novo Jogo</p>
+      <div class="fg"><label>Fase</label><input id="mm-fase" type="text" class="linput" placeholder="Oitavas, Quartas, Semi..."></div>
+      <div class="fg"><label>Time A</label><input id="mm-ta" type="text" class="linput" placeholder="Brasil"></div>
+      <div class="fg"><label>Time B</label><input id="mm-tb" type="text" class="linput" placeholder="Argentina"></div>
+      <div class="fg"><label>Data e Hora</label><input id="mm-dt" type="datetime-local" class="linput"></div>
+      <button class="btn btn-p btn-block" onclick="saveMmJogo()">Salvar Jogo</button>
+      <div class="div"></div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza);margin-bottom:8px">Registrar Resultado MM</p>
+      <div class="fg"><label>Jogo</label><select id="sel-mm-jogo" class="linput" onchange="previewMmJogo()"><option value="">Escolha um jogo MM</option></select></div>
+      <div id="mm-result-preview" style="display:none">
+        <div class="jplacar" style="margin:8px 0">
+          <div class="jtime"><div class="jflag" id="mm-prev-a"></div></div>
+          <div class="jmid"><div class="pinwrap"><input class="pnum" id="mm-res-a" type="number" min="0" max="20" value="0"><span class="psep">x</span><input class="pnum" id="mm-res-b" type="number" min="0" max="20" value="0"></div></div>
+          <div class="jtime"><div class="jflag" id="mm-prev-b"></div></div>
+        </div>
+        <button class="btn btn-p btn-block" onclick="saveMmResult()">Salvar Resultado MM</button>
+      </div>
+    </div>
     <div class="card">
       <div class="fg"><label>Participante</label><select id="adm-pal-user" style="width:100%;background:var(--fumo);border:1px solid #4A3325;border-radius:6px;color:var(--branco);font-family:Barlow,sans-serif;font-size:0.86rem;padding:8px 10px;outline:none"></select></div>
       <div class="fg"><label>Jogo</label><select id="adm-pal-jogo" style="width:100%;background:var(--fumo);border:1px solid #4A3325;border-radius:6px;color:var(--branco);font-family:Barlow,sans-serif;font-size:0.86rem;padding:8px 10px;outline:none"></select></div>
@@ -690,13 +656,11 @@ function startListeners() {
     if (currentPage==='jogos')    renderJogos();
     if (currentPage==='palpites') renderPalpites();
   });
-  // Mata-a-Mata: jogos
   db.collection('chb_mm').orderBy('dt').onSnapshot(snap => {
     cacheMmJogos = snap.docs.map(d => ({id: d.id, ...d.data()}));
     if (currentPage === 'palpites') renderPalpites();
     if (currentPage === 'admin') renderMmAdmin();
   });
-  // Mata-a-Mata: resultados
   db.collection('chb_mm_results').onSnapshot(snap => {
     cacheMmResults = {};
     snap.docs.forEach(d => { cacheMmResults[d.id] = d.data(); });
@@ -891,6 +855,51 @@ function renderPalpites() {
     });
   }
   if (!html) html=`<div class="empty"><div class="ico">ð</div><p>Nenhum jogo disponÃ­vel.</p></div>`;
+  // Mata-a-Mata section
+  if (cacheMmJogos.length) {
+    html += '<div class="sec">Mata-a-Mata</div>';
+    cacheMmJogos.forEach(function(j) {
+      var enc = !!(cacheMmResults[j.id]);
+      var r   = cacheMmResults[j.id] || null;
+      var p   = cachePalpites[uid + '_mm_' + j.id];
+      html += '<div class="jcard' + (enc ? ' locked' : '') + '">';
+      html += '<div class="jhead"><span class="jrodada">' + escH(j.fase || 'Mata-a-Mata') + '</span>';
+      html += '<span class="jdt">' + fmtDT(j) + '</span>';
+      if (enc) { html += '<span class="jpill sp-d">Encerrado</span>'; }
+      else      { html += '<span class="jpill sp-l">Aberto</span>'; }
+      html += '</div>';
+      html += '<div class="jplacar">';
+      html += '<div class="jtime"><div class="jflag">' + getFlag(j.ta) + '</div>';
+      html += '<div class="jnome">' + escH(stripFlag(j.ta)) + '</div></div>';
+      html += '<div class="jmid">';
+      if (r) { html += '<div class="jresult">' + r.a + ' - ' + r.b + '</div>'; }
+      else    { html += '<div class="jvs">VS</div>'; }
+      html += '</div>';
+      html += '<div class="jtime"><div class="jflag">' + getFlag(j.tb) + '</div>';
+      html += '<div class="jnome">' + escH(stripFlag(j.tb)) + '</div></div>';
+      html += '</div>';
+      if (!enc) {
+        var va = p ? p.a : '', vb = p ? p.b : '';
+        html += '<div class="pinwrap">';
+        html += '<input class="pnum" id="mpa-' + j.id + '" type="number" min="0" max="20" value="' + va + '" placeholder="-">';
+        html += '<span class="psep">x</span>';
+        html += '<input class="pnum" id="mpb-' + j.id + '" type="number" min="0" max="20" value="' + vb + '" placeholder="-">';
+        html += '</div>';
+        html += '<button class="btn btn-p btn-block" onclick="saveMmPalpite(\'' + j.id + '\')">Salvar Palpite</button>';
+        if (p) { html += '<div class="psaved">Palpite: ' + p.a + ' x ' + p.b + '</div>'; }
+      } else if (p) {
+        var sc = r ? calcPts(p.a, p.b, r.a, r.b) : 0;
+        var cl = sc===5?'pt5':sc===3?'pt3':sc===1?'pt1':'pt0';
+        html += '<div class="prow"><span class="puser">Seu palpite:</span>';
+        html += '<span class="pplc">' + p.a + ' x ' + p.b + '</span>';
+        if (r) { html += '<span class="ppts ' + cl + '">' + sc + ' pts</span>'; }
+        html += '</div>';
+      } else {
+        html += '<div class="plocked">Prazo encerrado</div>';
+      }
+      html += '</div>';
+    });
+  }
   el.innerHTML=html;
 }
 function savePalpite(uid, jogoId) {
@@ -1019,32 +1028,32 @@ function closeUserBets(){document.getElementById('modal-userbets').style.display
 function adminSavePalpiteManual(){if(!isAdmin)return;const uid=document.getElementById('adm-pal-user').value;const jid=document.getElementById('adm-pal-jogo').value;const a=parseInt(document.getElementById('adm-pal-a').value)||0;const b=parseInt(document.getElementById('adm-pal-b').value)||0;const msg=document.getElementById('adm-pal-msg');if(!uid||!jid){msg.style.color='#FF5252';msg.textContent='Selecione participante e jogo!';return;}db.collection('chb_palpites').doc(uid+'_'+jid).set({userId:uid,jogoId:jid,a,b,savedAt:firebase.firestore.FieldValue.serverTimestamp()}).then(()=>{msg.style.color='#4CAF50';msg.textContent='Palpite salvo!';setTimeout(()=>msg.textContent='',3000);}).catch(e=>{msg.style.color='#FF5252';msg.textContent='Erro: '+e.message;});}
 function populateAdmPalSelects(){if(!isAdmin)return;const uSel=document.getElementById('adm-pal-user');const jSel=document.getElementById('adm-pal-jogo');if(!uSel||!jSel)return;uSel.innerHTML='<option value="">-- Participante --</option>'+cacheUsers.map(u=>'<option value="'+u.id+'">'+u.emoji+' '+escH(u.name)+'</option>').join('');jSel.innerHTML='<option value="">-- Jogo --</option>'+JOGOS.map(j=>'<option value="'+j.id+'">'+j.id+': '+escH(stripFlag(j.ta))+' x '+escH(stripFlag(j.tb))+'</option>').join('');}
 function saveMmJogo() {
-  const ta   = document.getElementById('mm-ta').value.trim();
-  const tb   = document.getElementById('mm-tb').value.trim();
-  const dt   = document.getElementById('mm-dt').value;
-  const fase = document.getElementById('mm-fase').value.trim() || 'Mata-a-Mata';
+  var ta   = document.getElementById('mm-ta').value.trim();
+  var tb   = document.getElementById('mm-tb').value.trim();
+  var dt   = document.getElementById('mm-dt').value;
+  var fase = document.getElementById('mm-fase').value.trim() || 'Mata-a-Mata';
   if (!ta || !tb || !dt) { toastMsg('Preencha Time A, Time B e Data/Hora!'); return; }
-  const id = 'mm_' + Date.now();
-  db.collection('chb_mm').doc(id).set({ ta, tb, dt, fase, criadoEm: firebase.firestore.FieldValue.serverTimestamp() })
-    .then(() => {
-      toastMsg('✅ Jogo adicionado!');
+  var id = 'mm_' + Date.now();
+  db.collection('chb_mm').doc(id).set({ ta: ta, tb: tb, dt: dt, fase: fase, criadoEm: firebase.firestore.FieldValue.serverTimestamp() })
+    .then(function() {
+      toastMsg('Jogo adicionado!');
       document.getElementById('mm-ta').value = '';
       document.getElementById('mm-tb').value = '';
       document.getElementById('mm-dt').value = '';
       document.getElementById('mm-fase').value = '';
     })
-    .catch(e => toastMsg('Erro: ' + e.message));
+    .catch(function(e) { toastMsg('Erro: ' + e.message); });
 }
 function renderMmAdmin() {
-  const el = document.getElementById('mm-jogos-admin');
+  var el = document.getElementById('mm-jogos-admin');
   if (!el) return;
-  const sel = document.getElementById('sel-mm-jogo');
+  var sel = document.getElementById('sel-mm-jogo');
   if (sel) {
-    const cur = sel.value;
+    var cur = sel.value;
     sel.innerHTML = '<option value="">Escolha um jogo MM</option>' +
-      cacheMmJogos.map(j => {
-        const done = cacheMmResults[j.id];
-        return '<option value="' + j.id + '">' + (done ? '✅ ' : '') + escH(stripFlag(j.ta)) + ' x ' + escH(stripFlag(j.tb)) + ' (' + escH(j.fase || 'MM') + ')</option>';
+      cacheMmJogos.map(function(j) {
+        var done = cacheMmResults[j.id];
+        return '<option value="' + j.id + '">' + (done ? '[OK] ' : '') + escH(stripFlag(j.ta)) + ' x ' + escH(stripFlag(j.tb)) + ' (' + escH(j.fase || 'MM') + ')</option>';
       }).join('');
     if (cur) sel.value = cur;
   }
@@ -1052,55 +1061,53 @@ function renderMmAdmin() {
     el.innerHTML = '<p style="color:var(--cinza);font-size:.8rem">Nenhum jogo cadastrado.</p>';
     return;
   }
-  el.innerHTML = cacheMmJogos.map(j => {
-    const done = cacheMmResults[j.id];
+  el.innerHTML = cacheMmJogos.map(function(j) {
+    var done = cacheMmResults[j.id];
     return '<div class="ptrow"><span class="l">' + escH(j.fase || 'MM') + ': ' + escH(stripFlag(j.ta)) + ' x ' + escH(stripFlag(j.tb)) + '</span>' +
       (done ? '<span style="color:#4CAF50">' + done.a + '-' + done.b + '</span>' : '<span style="color:var(--cinza)">sem resultado</span>') +
-      '<button class="btn btn-d" style="padding:4px 8px;font-size:.7rem" onclick="deleteMmJogo('' + j.id + '')">✕</button></div>';
+      '<button class="btn btn-d" style="padding:4px 8px;font-size:.7rem" onclick="deleteMmJogo(\'' + j.id + '\')">X</button></div>';
   }).join('');
 }
 function previewMmJogo() {
-  const id = document.getElementById('sel-mm-jogo').value;
-  const prev = document.getElementById('mm-result-preview');
-  const j = cacheMmJogos.find(x => x.id === id);
+  var id   = document.getElementById('sel-mm-jogo').value;
+  var prev = document.getElementById('mm-result-preview');
+  var j    = cacheMmJogos.filter(function(x){ return x.id === id; })[0];
   if (j) {
     document.getElementById('mm-prev-a').textContent = getFlag(j.ta) + ' ' + escH(stripFlag(j.ta));
     document.getElementById('mm-prev-b').textContent = getFlag(j.tb) + ' ' + escH(stripFlag(j.tb));
-    const r = cacheMmResults[id] || { a: 0, b: 0 };
+    var r = cacheMmResults[id] || { a: 0, b: 0 };
     document.getElementById('mm-res-a').value = r.a;
     document.getElementById('mm-res-b').value = r.b;
     prev.style.display = 'block';
-  } else {
-    prev.style.display = 'none';
-  }
+  } else { prev.style.display = 'none'; }
 }
 function saveMmResult() {
-  const id = document.getElementById('sel-mm-jogo').value;
+  var id = document.getElementById('sel-mm-jogo').value;
   if (!id) { toastMsg('Selecione um jogo MM!'); return; }
-  const a = parseInt(document.getElementById('mm-res-a').value) || 0;
-  const b = parseInt(document.getElementById('mm-res-b').value) || 0;
-  db.collection('chb_mm_results').doc(id).set({ a, b, savedAt: firebase.firestore.FieldValue.serverTimestamp() })
-    .then(() => toastMsg('✅ Resultado MM salvo! Ranking atualizado.'))
-    .catch(e => toastMsg('Erro: ' + e.message));
+  var a = parseInt(document.getElementById('mm-res-a').value) || 0;
+  var b = parseInt(document.getElementById('mm-res-b').value) || 0;
+  db.collection('chb_mm_results').doc(id).set({ a: a, b: b, savedAt: firebase.firestore.FieldValue.serverTimestamp() })
+    .then(function() { toastMsg('Resultado MM salvo!'); })
+    .catch(function(e) { toastMsg('Erro: ' + e.message); });
 }
 function saveMmPalpite(jid) {
   if (!currentUser || currentUser.id === '__admin__') return;
-  const a = parseInt(document.getElementById('mpa-' + jid).value);
-  const b = parseInt(document.getElementById('mpb-' + jid).value);
+  var a = parseInt(document.getElementById('mpa-' + jid).value);
+  var b = parseInt(document.getElementById('mpb-' + jid).value);
   if (isNaN(a) || isNaN(b)) { toastMsg('Preencha o placar!'); return; }
-  const key = currentUser.id + '_mm_' + jid;
+  var key = currentUser.id + '_mm_' + jid;
   db.collection('chb_palpites').doc(key).set({
-    userId: currentUser.id, jogoId: 'mm_' + jid, a, b,
+    userId: currentUser.id, jogoId: 'mm_' + jid, a: a, b: b,
     savedAt: firebase.firestore.FieldValue.serverTimestamp()
   })
-    .then(() => toastMsg('✓ Palpite MM salvo!'))
-    .catch(e => toastMsg('Erro: ' + e.message));
+    .then(function() { toastMsg('Palpite MM salvo!'); })
+    .catch(function(e) { toastMsg('Erro: ' + e.message); });
 }
 function deleteMmJogo(id) {
-  showConfirm('Remover jogo?', 'Remove o jogo do mata-mata. Palpites existentes NÃO são apagados.', () => {
+  showConfirm('Remover jogo?', 'Remove o jogo. Palpites nao sao apagados.', function() {
     db.collection('chb_mm').doc(id).delete()
-      .then(() => toastMsg('Jogo removido.'))
-      .catch(e => toastMsg('Erro: ' + e.message));
+      .then(function() { toastMsg('Jogo removido.'); })
+      .catch(function(e) { toastMsg('Erro: ' + e.message); });
   });
 }
 
