@@ -532,13 +532,14 @@ function startListeners(){
   unsub_u=db.collection('chb_users').orderBy('createdAt').onSnapshot(snap=>{
     cacheUsers=snap.docs.map(d=>({id:d.id,...d.data()}));
     if(currentPage==='ranking') renderRanking();
-    if(currentPage==='admin') renderChips();
+    if(currentPage==='admin') renderAdmin();
     loadUsersOnce();
   });
   unsub_j=db.collection('chb_jogos').orderBy('createdAt').onSnapshot(snap=>{
     cacheJogos=snap.docs.map(d=>({id:d.id,...d.data()}));
     if(currentPage==='chave') renderChave(true);
     if(currentPage==='palpites') renderPalpites();
+    if(currentPage==='admin') renderAdmin();
     populateResSelect();
   });
   unsub_r=db.collection('chb_results').onSnapshot(snap=>{
@@ -574,7 +575,7 @@ function showPage(id){
 
 // ═══ TEMPO ═══
 function kickoff(j){ return new Date(j.dt+':00-03:00'); } // BRT = UTC-3
-function isBlocked(j){ return Date.now()>=kickoff(j).getTime(); }
+function isBlocked(j){ return false; } // trava por horário removida — bloqueia só quando admin registra resultado
 function isEnc(j){ return !!cacheResults[j.id]; }
 function fmtDT(j){
   if(!j.dt) return '—';
@@ -727,7 +728,7 @@ function closeMJ(){ document.getElementById('modal-jogo').style.display='none'; 
 
 function savePalpiteModal(uid,jid){
   const j=cacheJogos.find(x=>x.id===jid);
-  if(j&&isBlocked(j)){toast('⏱ Jogo ja comecou!'); closeMJ(); return;}
+
   const a=parseInt(document.getElementById('mj-a').value)||0;
   const b=parseInt(document.getElementById('mj-b').value)||0;
   db.collection('chb_palpites').doc(uid+'_'+jid).set({userId:uid,jogoId:jid,a,b,updatedAt:firebase.firestore.FieldValue.serverTimestamp()})
@@ -804,7 +805,7 @@ function renderPalpites(){
 }
 function savePalpite(uid,jid){
   const j=cacheJogos.find(x=>x.id===jid);
-  if(j&&isBlocked(j)){toast('⏱ Jogo ja comecou! Palpite bloqueado.');return;}
+
   const a=parseInt(document.getElementById('pa-'+jid).value)||0;
   const b=parseInt(document.getElementById('pb-'+jid).value)||0;
   db.collection('chb_palpites').doc(uid+'_'+jid).set({userId:uid,jogoId:jid,a,b,updatedAt:firebase.firestore.FieldValue.serverTimestamp()})
