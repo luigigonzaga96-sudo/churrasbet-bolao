@@ -310,6 +310,24 @@ nav button.active{color:var(--ouro);border-bottom-color:var(--dourado)}
       <button class="btn btn-p btn-block" onclick="saveRes()">✔ Salvar Resultado</button>
     </div>
 
+    <div class="sec">🎯 Palpite Manual</div>
+    <div class="card">
+      <div style="font-size:0.72rem;color:var(--cinza);margin-bottom:10px">Use para registrar palpite de um participante que nao conseguiu acessar a tempo.</div>
+      <div class="fg"><label>Participante</label>
+        <select id="adm-pal-user"><option value="">— Selecione —</option></select>
+      </div>
+      <div class="fg"><label>Jogo</label>
+        <select id="adm-pal-jogo"><option value="">— Selecione —</option></select>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0">
+        <input type="number" min="0" max="30" value="0" id="adm-pal-a" class="pnum" style="width:60px">
+        <span class="psep">×</span>
+        <input type="number" min="0" max="30" value="0" id="adm-pal-b" class="pnum" style="width:60px">
+      </div>
+      <button class="btn btn-p btn-block" onclick="adminSavePalpite()">💾 Salvar Palpite</button>
+      <div id="adm-pal-msg" style="text-align:center;font-size:0.75rem;margin-top:6px"></div>
+    </div>
+
     <div class="sec">⚠️ Zona Perigosa</div>
     <div class="card">
       <div class="fg"><label>Nova senha admin</label><input type="password" id="inp-newpw" placeholder="••••••"></div>
@@ -795,7 +813,7 @@ function savePalpite(uid,jid){
 }
 
 // ═══ ADMIN ═══
-function renderAdmin(){ renderChips(); populateResSelect(); }
+function renderAdmin(){ renderChips(); populateResSelect(); populateAdmPalSelects(); }
 function renderChips(){
   const el=document.getElementById('users-chips');
   el.innerHTML=cacheUsers.length
@@ -915,6 +933,38 @@ function showUserDetail(uid){
     </div>
     <div style="border-top:1px solid var(--fumo);padding-top:10px">${prows||'<p style="text-align:center;color:var(--cinza);font-size:0.8rem">Nenhum palpite ainda</p>'}</div>`;
   document.getElementById('modal-jogo').style.display='block';
+}
+
+// ═══ ADMIN PALPITE MANUAL ═══
+function populateAdmPalSelects(){
+  if(!isAdmin) return;
+  const uSel=document.getElementById('adm-pal-user');
+  const jSel=document.getElementById('adm-pal-jogo');
+  if(!uSel||!jSel) return;
+  uSel.innerHTML='<option value="">— Selecione —</option>'+
+    cacheUsers.map(u=>`<option value="${u.id}">${u.emoji} ${escH(u.name)}</option>`).join('');
+  const ordem=[...cacheJogos].sort((a,b)=>(FASE_ORDER[a.fase]||9)-(FASE_ORDER[b.fase]||9)||(a.dt||'').localeCompare(b.dt||''));
+  jSel.innerHTML='<option value="">— Selecione —</option>'+
+    ordem.map(j=>`<option value="${j.id}">${j.fase}: ${escH(stripFlag(j.ta))} × ${escH(stripFlag(j.tb))}</option>`).join('');
+}
+function adminSavePalpite(){
+  if(!isAdmin) return;
+  const uid=document.getElementById('adm-pal-user').value;
+  const jid=document.getElementById('adm-pal-jogo').value;
+  const a=parseInt(document.getElementById('adm-pal-a').value)||0;
+  const b=parseInt(document.getElementById('adm-pal-b').value)||0;
+  const msg=document.getElementById('adm-pal-msg');
+  if(!uid||!jid){msg.style.color='#FF5252';msg.textContent='Selecione participante e jogo!';return;}
+  db.collection('chb_palpites').doc(uid+'_'+jid).set({
+    userId:uid, jogoId:jid, a, b,
+    updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+  }).then(()=>{
+    msg.style.color='#4CAF50';
+    const u=cacheUsers.find(x=>x.id===uid);
+    const j=cacheJogos.find(x=>x.id===jid);
+    msg.textContent=`✔ Palpite de ${u?.name||uid} salvo: ${a}×${b}`;
+    setTimeout(()=>msg.textContent='',4000);
+  }).catch(e=>{msg.style.color='#FF5252';msg.textContent='Erro: '+e.message;});
 }
 
 // ═══ UTILS ═══
