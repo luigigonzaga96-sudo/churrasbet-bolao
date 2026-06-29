@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ChurrasBet â Copa 2026</title>
+<title>ChurrasBet — Copa 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
-<!-- Firebase Compat SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -17,27 +16,22 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--branco);min-height:100vh}
-/* SPLASH */
-#splash{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
-.splash-logo svg{width:72px;height:72px}
+#splash{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px}
 .splash-title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:3px;background:linear-gradient(135deg,var(--ouro),var(--dourado),var(--brasa));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .splash-msg{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--cinza)}
-/* LOGIN */
 #login-screen{position:fixed;inset:0;background:var(--bg);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
-.login-box{width:100%;max-width:340px;text-align:center}
-.login-logo svg{width:72px;height:72px;margin-bottom:16px}
-.login-title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:3px;background:linear-gradient(135deg,var(--ouro),var(--dourado),var(--brasa));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:2px}
-.login-sub{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--cinza);margin-bottom:28px}
-.lbl{display:block;font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--cinza);text-align:left;margin-bottom:5px;font-weight:700}
-.linput{width:100%;background:var(--fumo);border:1px solid #4A3325;border-radius:8px;color:var(--branco);font-family:'Barlow',sans-serif;font-size:1rem;padding:13px 14px;outline:none;margin-bottom:10px;transition:border-color .2s}
-.linput:focus{border-color:var(--dourado)}
+.lbox{width:100%;max-width:340px;text-align:center}
+.ltitle{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:3px;background:linear-gradient(135deg,var(--ouro),var(--dourado),var(--brasa));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:2px}
+.lsub{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--cinza);margin-bottom:28px}
+.llbl{display:block;font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--cinza);text-align:left;margin-bottom:5px;font-weight:700}
+.linp{width:100%;background:var(--fumo);border:1px solid #4A3325;border-radius:8px;color:var(--branco);font-family:'Barlow',sans-serif;font-size:1rem;padding:13px 14px;outline:none;margin-bottom:10px;transition:border-color .2s}
+.linp:focus{border-color:var(--dourado)}
 .lbtn{width:100%;font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:2px;background:linear-gradient(135deg,var(--dourado),var(--brasa));color:var(--carvao);border:none;border-radius:8px;padding:13px;cursor:pointer;transition:filter .2s}
 .lbtn:hover{filter:brightness(1.1)}
-.lbtn-admin{background:linear-gradient(135deg,#8B3A0F,#5A1A00)!important;color:var(--branco)!important;margin-top:0}
-#admin-login-section{display:none;margin-top:4px}
-.div{height:1px;background:var(--fumo);margin:16px 0}
-.login-hint{font-size:0.73rem;color:var(--cinza);margin-top:14px;line-height:1.6}
-/* HEADER */
+.lbtn-adm{background:linear-gradient(135deg,#8B3A0F,#5A1A00)!important;color:var(--branco)!important}
+#adm-login-sec{display:none;margin-top:4px}
+.hdiv{height:1px;background:var(--fumo);margin:14px 0}
+.lhint{font-size:0.72rem;color:var(--cinza);margin-top:14px;line-height:1.6}
 header{background:linear-gradient(180deg,var(--carvao),var(--carvao2));border-bottom:3px solid var(--brasa);padding:12px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
 .hlogo svg{width:42px;height:42px;flex-shrink:0}
 .htxt{flex:1}
@@ -64,20 +58,22 @@ nav button.active{color:var(--ouro);border-bottom-color:var(--dourado)}
 .sec{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:2px;color:var(--ouro);margin-bottom:11px;display:flex;align-items:center;gap:7px}
 .sec::after{content:'';flex:1;height:1px;background:var(--fumo)}
 .card{background:var(--carvao2);border:1px solid var(--fumo);border-radius:10px;padding:13px;margin-bottom:9px}
-.rk-item{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--fumo)}
+/* RANKING */
+.rk-item{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--fumo);cursor:pointer}
 .rk-item:last-child{border-bottom:none}
 .rk-pos{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;width:28px;text-align:center;color:var(--cinza);flex-shrink:0}
 .rk-gold{color:var(--ouro)}.rk-silver{color:#C0C0C0}.rk-bronze{color:#CD7F32}
 .rk-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;border:2px solid var(--fumo)}
 .rk-info{flex:1;min-width:0}
-.rk-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.92rem;letter-spacing:.3px}
+.rk-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.92rem}
 .rk-sub{font-size:0.66rem;color:var(--cinza);margin-top:1px}
 .rk-pts{font-family:'Bebas Neue',sans-serif;font-size:1.65rem;color:var(--ouro);flex-shrink:0;letter-spacing:1px;text-align:right}
 .rk-pts span{font-size:0.52rem;font-family:'Barlow',sans-serif;color:var(--cinza);display:block;text-align:right;margin-top:-3px}
+/* JOGO CARD */
 .jcard{background:var(--carvao2);border:1px solid var(--fumo);border-radius:10px;padding:11px 13px;margin-bottom:8px}
-.jcard.locked{opacity:.72;border-color:#2A1A0E}
+.jcard.locked{opacity:.75;border-color:#2A1A0E}
 .jhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;flex-wrap:wrap;gap:3px}
-.jrodada{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;letter-spacing:2px;text-transform:uppercase;color:var(--cinza);font-weight:700}
+.jfase{font-family:'Barlow Condensed',sans-serif;font-size:0.66rem;letter-spacing:2px;text-transform:uppercase;color:var(--cinza);font-weight:700}
 .jdt{font-size:0.66rem;color:var(--cinza)}
 .jpill{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;padding:2px 7px;border-radius:20px;font-weight:700}
 .sp-p{background:var(--fumo);color:var(--cinza)}
@@ -86,17 +82,16 @@ nav button.active{color:var(--ouro);border-bottom-color:var(--dourado)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 .jplacar{display:flex;align-items:center;gap:5px;justify-content:center}
 .jtime{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
-.jflag{font-size:1.8rem;line-height:1}
+.jflag{font-size:1.9rem;line-height:1}
 .jnome{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.68rem;text-align:center;text-transform:uppercase;letter-spacing:.2px}
 .jmid{flex:1.3;text-align:center}
 .jresult{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:var(--ouro);line-height:1}
 .jvs{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--brasa);padding:10px 0}
-.jtbd{font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;color:var(--cinza);letter-spacing:1px;padding:8px 0}
 .prow{display:flex;align-items:center;gap:7px;padding:6px 0;border-top:1px solid #2A1A0E}
 .puser{font-size:0.78rem;flex:1}
 .pplc{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--ouro);min-width:48px;text-align:center}
 .ppts{font-family:'Bebas Neue',sans-serif;font-size:.95rem;min-width:28px;text-align:right}
-.pt5{color:#FFD700}.pt3{color:#4CAF50}.pt1{color:#2196F3}.pt0{color:#FF5252}.ptnd{color:var(--cinza)}
+.pt5{color:#FFD700}.pt3{color:#4CAF50}.pt0{color:#FF5252}.ptnd{color:var(--cinza)}
 .pinwrap{display:flex;align-items:center;justify-content:center;gap:7px;margin:7px 0 9px}
 .pnum{width:58px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;padding:5px 2px;background:var(--fumo);border:1px solid #4A3325;border-radius:6px;color:var(--ouro);outline:none;-moz-appearance:textfield}
 .pnum:focus{border-color:var(--dourado)}
@@ -114,7 +109,6 @@ nav button.active{color:var(--ouro);border-bottom-color:var(--dourado)}
 .fg input,.fg select{width:100%;background:var(--fumo);border:1px solid #4A3325;border-radius:6px;color:var(--branco);font-family:'Barlow',sans-serif;font-size:0.86rem;padding:8px 10px;outline:none;transition:border-color .2s}
 .fg input:focus,.fg select:focus{border-color:var(--dourado)}
 .fg select option{background:var(--carvao2)}
-.g2{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
 .chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
 .chip{display:flex;align-items:center;gap:4px;background:var(--fumo);border:1px solid #4A3325;border-radius:20px;padding:4px 9px;font-size:0.76rem}
 .chip button{background:none;border:none;color:var(--cinza);cursor:pointer;font-size:0.82rem;padding:0 0 0 3px;line-height:1}
@@ -131,238 +125,224 @@ nav button.active{color:var(--ouro);border-bottom-color:var(--dourado)}
 .empty{text-align:center;padding:34px 14px;color:var(--cinza)}
 .empty .ico{font-size:2.6rem;margin-bottom:9px}
 .empty p{font-size:0.83rem;line-height:1.6}
-.online-dot{width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block;animation:pulse 2s infinite;margin-left:4px}
+.odot{width:7px;height:7px;border-radius:50%;background:#4CAF50;display:inline-block;animation:pulse 2s infinite;margin-left:4px}
 #toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--carvao2);border:1px solid var(--brasa);border-left:4px solid var(--dourado);color:var(--branco);font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:0.85rem;padding:9px 16px;border-radius:8px;z-index:9999;transition:transform .3s;max-width:290px;text-align:center}
 #toast.show{transform:translateX(-50%) translateY(0)}
-.div{height:1px;background:var(--fumo);margin:13px 0}
-@media(max-width:400px){.htxt h1{font-size:1.35rem}.jflag{font-size:1.55rem}}
+/* CHAVEAMENTO */
+.chave-fase{margin-bottom:20px}
+.chave-fase-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:2px;color:var(--ouro);text-align:center;margin-bottom:10px;padding:6px;background:var(--fumo);border-radius:6px}
+.chave-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:500px){.chave-grid{grid-template-columns:1fr}}
+.chave-jogo{background:var(--carvao2);border:1px solid var(--fumo);border-radius:8px;padding:10px;cursor:pointer;transition:border-color .2s}
+.chave-jogo:hover{border-color:var(--dourado)}
+.chave-jogo.enc{border-color:#1A3D1A}
+.chave-times{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.chave-time{display:flex;align-items:center;gap:5px;flex:1}
+.chave-time.right{flex-direction:row-reverse;text-align:right}
+.chave-flag{font-size:1.4rem;line-height:1;flex-shrink:0}
+.chave-nome{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.72rem;text-transform:uppercase;letter-spacing:.2px}
+.chave-placar{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--ouro);min-width:44px;text-align:center;flex-shrink:0}
+.chave-placar.tbd{color:var(--cinza);font-size:0.9rem}
+.chave-meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.chave-dt{font-size:0.62rem;color:var(--cinza)}
+.chave-pill{font-family:'Barlow Condensed',sans-serif;font-size:0.58rem;letter-spacing:1.5px;text-transform:uppercase;padding:2px 6px;border-radius:20px;font-weight:700}
+/* MODAL JOGO */
+#modal-jogo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:700;overflow-y:auto;padding:16px}
+.mj-inner{background:var(--carvao2);border:1px solid var(--brasa);border-radius:12px;max-width:460px;margin:0 auto;padding:16px}
+.mj-close{background:none;border:none;color:var(--cinza);cursor:pointer;font-size:1.1rem;float:right;padding:2px 6px}
+.mj-close:hover{color:var(--branco)}
 </style>
 </head>
 <body>
-<!-- SPLASH -->
+
 <div id="splash">
-  <div class="splash-logo">
-    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 80 80" fill="none" width="72" height="72">
+    <ellipse cx="40" cy="38" rx="28" ry="12" fill="#5C2D0A" stroke="#D4900A" stroke-width="1.5"/>
+    <ellipse cx="40" cy="34" rx="28" ry="10" fill="#3D1A05" stroke="#8B3A0F" stroke-width="1"/>
+    <ellipse cx="40" cy="34" rx="20" ry="6" fill="#7B1C1C" opacity="0.9"/>
+    <ellipse cx="33" cy="35" rx="5" ry="3" fill="#D4400A" opacity="0.8"/>
+    <path d="M34 30 Q32 25 35 22 Q33 27 37 24 Q35 29 38 26 Q37 30 34 30Z" fill="#F5A623" opacity="0.9"/>
+    <path d="M42 29 Q40 23 43 20 Q41 26 45 22 Q43 28 46 25 Q44 29 42 29Z" fill="#FF6B2B" opacity="0.8"/>
+    <line x1="15" y1="38" x2="65" y2="38" stroke="#A0522D" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="18" y1="41" x2="62" y2="41" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
+    <line x1="22" y1="46" x2="16" y2="68" stroke="#5C2D0A" stroke-width="3" stroke-linecap="round"/>
+    <line x1="58" y1="46" x2="64" y2="68" stroke="#5C2D0A" stroke-width="3" stroke-linecap="round"/>
+    <line x1="18" y1="60" x2="62" y2="60" stroke="#3D1A05" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="40" cy="14" r="7" fill="#002776" stroke="#FFDF00" stroke-width="1.5"/>
+  </svg>
+  <div class="splash-title">ChurrasBet</div>
+  <div class="splash-msg">Conectando...</div>
+</div>
+
+<div id="login-screen">
+  <div class="lbox">
+    <svg viewBox="0 0 80 80" fill="none" width="64" height="64" style="margin-bottom:14px">
       <ellipse cx="40" cy="38" rx="28" ry="12" fill="#5C2D0A" stroke="#D4900A" stroke-width="1.5"/>
       <ellipse cx="40" cy="34" rx="28" ry="10" fill="#3D1A05" stroke="#8B3A0F" stroke-width="1"/>
       <ellipse cx="40" cy="34" rx="20" ry="6" fill="#7B1C1C" opacity="0.9"/>
-      <ellipse cx="33" cy="35" rx="5" ry="3" fill="#D4400A" opacity="0.8"/>
-      <ellipse cx="44" cy="33" rx="6" ry="3.5" fill="#E05010" opacity="0.7"/>
-      <ellipse cx="38" cy="36" rx="4" ry="2.5" fill="#F5C842" opacity="0.6"/>
       <path d="M34 30 Q32 25 35 22 Q33 27 37 24 Q35 29 38 26 Q37 30 34 30Z" fill="#F5A623" opacity="0.9"/>
       <path d="M42 29 Q40 23 43 20 Q41 26 45 22 Q43 28 46 25 Q44 29 42 29Z" fill="#FF6B2B" opacity="0.8"/>
-      <path d="M38 31 Q36 26 39 23 Q37 28 41 25 Q39 30 38 31Z" fill="#FFD700" opacity="0.7"/>
       <line x1="15" y1="38" x2="65" y2="38" stroke="#A0522D" stroke-width="2.5" stroke-linecap="round"/>
       <line x1="18" y1="41" x2="62" y2="41" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
       <line x1="22" y1="46" x2="16" y2="68" stroke="#5C2D0A" stroke-width="3" stroke-linecap="round"/>
       <line x1="58" y1="46" x2="64" y2="68" stroke="#5C2D0A" stroke-width="3" stroke-linecap="round"/>
-      <line x1="30" y1="46" x2="24" y2="68" stroke="#5C2D0A" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="50" y1="46" x2="56" y2="68" stroke="#5C2D0A" stroke-width="2.5" stroke-linecap="round"/>
       <line x1="18" y1="60" x2="62" y2="60" stroke="#3D1A05" stroke-width="2" stroke-linecap="round"/>
       <circle cx="40" cy="14" r="7" fill="#002776" stroke="#FFDF00" stroke-width="1.5"/>
-      <path d="M36 11 Q40 9 44 11 Q43 14 40 15 Q37 14 36 11Z" fill="#F5F0E8" opacity="0.6"/>
     </svg>
-  </div>
-  <div class="splash-title">ChurrasBet</div>
-  <div class="splash-msg">Conectando...</div>
-</div>
-<!-- LOGIN -->
-<div id="login-screen">
-  <div class="login-box">
-    <div class="login-logo">
-      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="40" cy="38" rx="28" ry="12" fill="#5C2D0A" stroke="#D4900A" stroke-width="1.5"/>
-        <ellipse cx="40" cy="34" rx="28" ry="10" fill="#3D1A05" stroke="#8B3A0F" stroke-width="1"/>
-        <ellipse cx="40" cy="34" rx="20" ry="6" fill="#7B1C1C" opacity="0.9"/>
-        <ellipse cx="33" cy="35" rx="5" ry="3" fill="#D4400A" opacity="0.8"/>
-        <ellipse cx="44" cy="33" rx="6" ry="3.5" fill="#E05010" opacity="0.7"/>
-        <path d="M34 30 Q32 25 35 22 Q33 27 37 24 Q35 29 38 26 Q37 30 34 30Z" fill="#F5A623" opacity="0.9"/>
-        <path d="M42 29 Q40 23 43 20 Q41 26 45 22 Q43 28 46 25 Q44 29 42 29Z" fill="#FF6B2B" opacity="0.8"/>
-        <line x1="15" y1="38" x2="65" y2="38" stroke="#A0522D" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="18" y1="41" x2="62" y2="41" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
-        <line x1="22" y1="46" x2="16" y2="68" stroke="#5C2D0A" stroke-width="3" stroke-linecap="round"/>
-        <line x1="58" y1="46" x2="64" y2="68" stroke="#5C2D0A" stroke-width="3" stroke-linecap="round"/>
-        <line x1="18" y1="60" x2="62" y2="60" stroke="#3D1A05" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="40" cy="14" r="7" fill="#002776" stroke="#FFDF00" stroke-width="1.5"/>
-        <path d="M36 11 Q40 9 44 11 Q43 14 40 15 Q37 14 36 11Z" fill="#F5F0E8" opacity="0.6"/>
-      </svg>
-    </div>
-    <div class="login-title">ChurrasBet</div>
-    <div class="login-sub">Copa do Mundo 2026</div>
-    <label class="lbl">Quem Ã© vocÃª?</label>
-    <select id="ls-select" class="linput" style="appearance:none;cursor:pointer">
-      <option value="">â Selecione seu nome â</option>
+    <div class="ltitle">ChurrasBet</div>
+    <div class="lsub">Copa do Mundo 2026</div>
+    <label class="llbl">Quem e voce?</label>
+    <select id="ls-select" class="linp" style="appearance:none;cursor:pointer">
+      <option value="">— Selecione seu nome —</option>
     </select>
-    <button class="lbtn" onclick="doLogin()">ð¥ ENTRAR</button>
-    <div class="div"></div>
-    <button style="background:none;border:none;color:var(--cinza);font-size:0.76rem;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px" onclick="toggleAdminSection()">âï¸ ACESSO ADMIN</button>
-    <div id="admin-login-section">
-      <div class="div" style="margin:10px 0"></div>
-      <label class="lbl">Senha Admin</label>
-      <input type="password" id="ls-pw" class="linput" placeholder="â¢â¢â¢â¢â¢â¢" onkeydown="if(event.key==='Enter')doAdminLogin()">
-      <button class="lbtn lbtn-admin" onclick="doAdminLogin()">ð ENTRAR COMO ADMIN</button>
+    <button class="lbtn" onclick="doLogin()">🔥 ENTRAR</button>
+    <div class="hdiv"></div>
+    <button style="background:none;border:none;color:var(--cinza);font-size:0.76rem;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px" onclick="toggleAdmSec()">⚙️ ACESSO ADMIN</button>
+    <div id="adm-login-sec">
+      <div class="hdiv" style="margin:10px 0"></div>
+      <label class="llbl">Senha Admin</label>
+      <input type="password" id="ls-pw" class="linp" placeholder="••••••" onkeydown="if(event.key==='Enter')doAdminLogin()">
+      <button class="lbtn lbtn-adm" onclick="doAdminLogin()">🔑 ENTRAR COMO ADMIN</button>
     </div>
-    <div class="login-hint">Seu dispositivo fica lembrado.<br>PrÃ³xima visita entra direto. ð</div>
+    <div class="lhint">Seu dispositivo fica lembrado.<br>Proxima visita entra direto. 🍖</div>
   </div>
 </div>
-<!-- APP -->
+
 <div id="app" style="display:none">
-  <div id="adminBar">ð¥ MODO ADMIN â sÃ³ vocÃª vÃª isso</div>
+  <div id="adminBar">🔥 MODO ADMIN — so voce ve isso</div>
   <header>
     <div class="hlogo">
-      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 80 80" fill="none" width="42" height="42">
         <ellipse cx="40" cy="38" rx="28" ry="12" fill="#5C2D0A" stroke="#D4900A" stroke-width="1.5"/>
         <ellipse cx="40" cy="34" rx="28" ry="10" fill="#3D1A05" stroke="#8B3A0F" stroke-width="1"/>
         <ellipse cx="40" cy="34" rx="20" ry="6" fill="#7B1C1C" opacity="0.9"/>
-        <ellipse cx="33" cy="35" rx="5" ry="3" fill="#D4400A" opacity="0.8"/>
         <path d="M34 30 Q32 25 35 22 Q33 27 37 24 Q35 29 38 26 Q37 30 34 30Z" fill="#F5A623" opacity="0.9"/>
         <path d="M42 29 Q40 23 43 20 Q41 26 45 22 Q43 28 46 25 Q44 29 42 29Z" fill="#FF6B2B" opacity="0.8"/>
         <line x1="15" y1="38" x2="65" y2="38" stroke="#A0522D" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="18" y1="41" x2="62" y2="41" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
-        <line x1="22" y1="46" x2="16" y2="68" stroke="#5C2D0A" stroke-width="3" stroke-linecap="round"/>
         <line x1="58" y1="46" x2="64" y2="68" stroke="#5C2D0A" stroke-width="3" stroke-linecap="round"/>
-        <line x1="18" y1="60" x2="62" y2="60" stroke="#3D1A05" stroke-width="2" stroke-linecap="round"/>
+        <line x1="22" y1="46" x2="16" y2="68" stroke="#5C2D0A" stroke-width="3" stroke-linecap="round"/>
         <circle cx="40" cy="14" r="7" fill="#002776" stroke="#FFDF00" stroke-width="1.5"/>
-        <path d="M36 11 Q40 9 44 11 Q43 14 40 15 Q37 14 36 11Z" fill="#F5F0E8" opacity="0.6"/>
       </svg>
     </div>
     <div class="htxt">
       <h1>ChurrasBet</h1>
-      <p>Copa do Mundo 2026 <span class="online-dot"></span></p>
+      <p>Copa 2026 — Mata-Mata <span class="odot"></span></p>
     </div>
     <div class="huser" onclick="logout()">
-      <span id="hdr-emoji">ð¤ </span>
+      <span id="hdr-emoji">🤠</span>
       <span id="hdr-name" style="max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-      <span style="color:var(--cinza);font-size:0.68rem">â©</span>
+      <span style="color:var(--cinza);font-size:0.68rem">↩</span>
     </div>
   </header>
   <nav>
-    <button class="active" onclick="showPage('ranking')">ð Ranking</button>
-    <button onclick="showPage('jogos')">â½ Jogos</button>
-    <button onclick="showPage('palpites')">ð¯ Palpitar</button>
-    <button id="navAdmin" onclick="showPage('admin')" style="display:none">ð¥ Admin</button>
-    <button onclick="showPage('regras')">ð Regras</button>
+    <button class="active" onclick="showPage('ranking')">🏆 Ranking</button>
+    <button onclick="showPage('chave')">⚔️ Chaveamento</button>
+    <button onclick="showPage('palpites')">🎯 Palpitar</button>
+    <button id="navAdmin" onclick="showPage('admin')" style="display:none">🔥 Admin</button>
+    <button onclick="showPage('regras')">📋 Regras</button>
   </nav>
+
+  <!-- RANKING -->
   <div id="page-ranking" class="page active">
-    <div class="sec">ð ClassificaÃ§Ã£o ao vivo</div>
-    <div id="ranking-list"><div class="empty"><div class="ico">ð</div><p>Carregando...</p></div></div>
+    <div class="sec">🏆 Classificacao ao vivo</div>
+    <div id="ranking-list"><div class="empty"><div class="ico">🔄</div><p>Carregando...</p></div></div>
   </div>
-  <div id="page-jogos" class="page">
-    <div class="fbar" id="jogos-fbar"></div>
-    <div id="jogos-list"></div>
+
+  <!-- CHAVEAMENTO -->
+  <div id="page-chave" class="page">
+    <div class="fbar" id="chave-fbar"></div>
+    <div id="chave-list"></div>
   </div>
+
+  <!-- PALPITES -->
   <div id="page-palpites" class="page">
-    <div class="sec">ð¯ Meus Palpites</div>
+    <div class="sec">🎯 Meus Palpites</div>
     <div id="palpites-list"></div>
   </div>
+
+  <!-- ADMIN -->
   <div id="page-admin" class="page">
-    <div class="sec">ð¥ Participantes</div>
+    <div class="sec">👥 Participantes</div>
     <div class="card">
       <div id="users-chips" class="chips"></div>
-      <div class="g2">
-        <div class="fg" style="margin:0">
-          <label>Nome do participante</label>
-          <input type="text" id="inp-uname" placeholder="Ex: Gonzaga" maxlength="20" onkeydown="if(event.key==='Enter')addUser()">
-        </div>
-        <button class="btn btn-p" style="height:38px;align-self:end" onclick="addUser()">+ Add</button>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end">
+        <div class="fg" style="margin:0"><label>Nome</label><input type="text" id="inp-uname" placeholder="Ex: Gonzaga" maxlength="20" onkeydown="if(event.key==='Enter')addUser()"></div>
+        <button class="btn btn-p" style="height:38px" onclick="addUser()">+ Add</button>
       </div>
-      <div style="margin-top:7px;font-size:0.7rem;color:var(--cinza)">MÃ¡ximo 10 participantes</div>
     </div>
-    <div class="sec">ð Registrar Resultado</div>
+
+    <div class="sec">⚔️ Cadastrar Jogo</div>
     <div class="card">
-      <div class="fg">
-        <label>Jogo</label>
-        <select id="sel-jogo" onchange="previewJogo()">
-          <option value="">â Escolha um jogo â</option>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="fg"><label>Time A (com bandeira)</label><input type="text" id="mm-ta" placeholder="Brasil 🇧🇷"></div>
+        <div class="fg"><label>Time B (com bandeira)</label><input type="text" id="mm-tb" placeholder="Argentina 🇦🇷"></div>
+      </div>
+      <div class="fg"><label>Fase</label>
+        <select id="mm-fase">
+          <option value="16 Avos">16 Avos de Final</option>
+          <option value="Oitavas">Oitavas de Final</option>
+          <option value="Quartas">Quartas de Final</option>
+          <option value="Semifinal">Semifinal</option>
+          <option value="Terceiro">3o Lugar</option>
+          <option value="Final">Final 🏆</option>
         </select>
       </div>
-      <div id="result-preview" style="display:none">
+      <div class="fg"><label>Data e Horario (BRT)</label><input type="datetime-local" id="mm-dt"></div>
+      <button class="btn btn-p btn-block" onclick="addJogo()">+ Cadastrar Partida</button>
+    </div>
+
+    <div class="sec">📝 Registrar Resultado</div>
+    <div class="card">
+      <div class="fg"><label>Jogo</label>
+        <select id="sel-res" onchange="previewRes()"><option value="">— Escolha —</option></select>
+      </div>
+      <div id="res-preview" style="display:none">
         <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin:9px 0">
-          <span id="prev-a" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.95rem;flex:1;text-align:right"></span>
+          <span id="prev-ta" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;flex:1;text-align:right"></span>
           <div style="display:flex;align-items:center;gap:5px">
             <input type="number" id="res-a" min="0" max="30" value="0" class="pnum" style="width:54px">
-            <span class="psep">Ã</span>
+            <span class="psep">x</span>
             <input type="number" id="res-b" min="0" max="30" value="0" class="pnum" style="width:54px">
           </div>
-          <span id="prev-b" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.95rem;flex:1;text-align:left"></span>
+          <span id="prev-tb" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;flex:1;text-align:left"></span>
         </div>
       </div>
-      <button class="btn btn-p btn-block" onclick="saveResult()">â Salvar Resultado</button>
+      <button class="btn btn-p btn-block" onclick="saveRes()">✔ Salvar Resultado</button>
     </div>
-    <div class="sec">âï¸ Palpite Manual</div>
+
+    <div class="sec">⚠️ Zona Perigosa</div>
     <div class="card">
-      <div class="sec">&#9917; Mata-a-Mata / Jogos Extras</div>
-      <div id="mm-jogos-admin"><p style="color:var(--cinza);font-size:.8rem">Nenhum jogo cadastrado.</p></div>
-      <div class="div"></div>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza);margin-bottom:8px">Novo Jogo</p>
-      <div class="fg"><label>Fase</label><input id="mm-fase" type="text" class="linput" placeholder="Oitavas, Quartas, Semi..."></div>
-      <div class="fg"><label>Time A</label><input id="mm-ta" type="text" class="linput" placeholder="Brasil"></div>
-      <div class="fg"><label>Time B</label><input id="mm-tb" type="text" class="linput" placeholder="Argentina"></div>
-      <div class="fg"><label>Data e Hora</label><input id="mm-dt" type="datetime-local" class="linput"></div>
-      <button class="btn btn-p btn-block" onclick="saveMmJogo()">Salvar Jogo</button>
-      <div class="div"></div>
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza);margin-bottom:8px">Registrar Resultado MM</p>
-      <div class="fg"><label>Jogo</label><select id="sel-mm-jogo" class="linput" onchange="previewMmJogo()"><option value="">Escolha um jogo MM</option></select></div>
-      <div id="mm-result-preview" style="display:none">
-        <div class="jplacar" style="margin:8px 0">
-          <div class="jtime"><div class="jflag" id="mm-prev-a"></div></div>
-          <div class="jmid"><div class="pinwrap"><input class="pnum" id="mm-res-a" type="number" min="0" max="20" value="0"><span class="psep">x</span><input class="pnum" id="mm-res-b" type="number" min="0" max="20" value="0"></div></div>
-          <div class="jtime"><div class="jflag" id="mm-prev-b"></div></div>
-        </div>
-        <button class="btn btn-p btn-block" onclick="saveMmResult()">Salvar Resultado MM</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="fg"><label>Participante</label><select id="adm-pal-user" style="width:100%;background:var(--fumo);border:1px solid #4A3325;border-radius:6px;color:var(--branco);font-family:Barlow,sans-serif;font-size:0.86rem;padding:8px 10px;outline:none"></select></div>
-      <div class="fg"><label>Jogo</label><select id="adm-pal-jogo" style="width:100%;background:var(--fumo);border:1px solid #4A3325;border-radius:6px;color:var(--branco);font-family:Barlow,sans-serif;font-size:0.86rem;padding:8px 10px;outline:none"></select></div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0"><input type="number" min="0" max="30" value="0" id="adm-pal-a" class="pnum" style="width:58px"><span class="psep">x</span><input type="number" min="0" max="30" value="0" id="adm-pal-b" class="pnum" style="width:58px"></div>
-      <button class="btn btn-p btn-block" onclick="adminSavePalpiteManual()">ð¾ Salvar Palpite</button>
-      <div id="adm-pal-msg" style="text-align:center;font-size:0.75rem;color:#4CAF50;margin-top:5px"></div>
-    </div>
-        <div class="sec">â ï¸ Zona Perigosa</div>
-    <div class="card">
-      <div class="fg">
-        <label>Nova senha admin (deixe vazio para manter)</label>
-        <input type="password" id="inp-newpw" placeholder="â¢â¢â¢â¢â¢â¢">
-      </div>
-      <button class="btn btn-s btn-block" onclick="changePw()">ð Atualizar Senha</button>
-      <div class="div"></div>
-      <button class="btn btn-d btn-block" onclick="resetAll()">ðï¸ Zerar tudo e recomeÃ§ar</button>
+      <div class="fg"><label>Nova senha admin</label><input type="password" id="inp-newpw" placeholder="••••••"></div>
+      <button class="btn btn-s btn-block" onclick="changePw()">🔑 Atualizar Senha</button>
+      <div style="height:1px;background:var(--fumo);margin:12px 0"></div>
+      <button class="btn btn-d btn-block" onclick="resetAll()">🗑️ Zerar tudo</button>
     </div>
   </div>
+
+  <!-- REGRAS -->
   <div id="page-regras" class="page">
-    <div class="sec">ð Como Funciona</div>
+    <div class="sec">📋 Como Funciona</div>
     <div class="card">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1px;color:var(--ouro);margin-bottom:9px">ð¯ PontuaÃ§Ã£o</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1px;color:var(--ouro);margin-bottom:9px">🎯 Pontuacao</div>
       <div class="ptbl">
-        <div class="ptrow"><span class="l">ð¥ Placar exato</span><span style="font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#FFD700">+5 pts</span></div>
-        <div class="ptrow"><span class="l">â Acertou o vencedor (ou empate)</span><span style="font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#4CAF50">+3 pts</span></div>
-        <div class="ptrow"><span class="l">â Errou o resultado</span><span style="font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#FF5252">0 pts</span></div>
+        <div class="ptrow"><span class="l">🥇 Placar exato</span><span style="font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#FFD700">+5 pts</span></div>
+        <div class="ptrow"><span class="l">✅ Acertou o vencedor</span><span style="font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#4CAF50">+3 pts</span></div>
+        <div class="ptrow"><span class="l">❌ Errou</span><span style="font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#FF5252">0 pts</span></div>
       </div>
     </div>
     <div class="card">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1px;color:var(--ouro);margin-bottom:9px">ð Regras</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1px;color:var(--ouro);margin-bottom:9px">📌 Regras</div>
       <ul style="padding-left:15px;line-height:2.1;font-size:0.83rem">
-        <li>Palpite bloqueia automaticamente no horÃ¡rio do jogo</li>
-        <li>Empate Ã© vÃ¡lido â 1Ã1 exato vale 5 pts</li>
-        <li>Desempate no ranking: mais placares exatos fica Ã  frente</li>
-        <li>Resultado inserido pelo Admin apÃ³s o jogo</li>
+        <li>Palpite bloqueia no horario do jogo automaticamente</li>
+        <li>Desempate: mais placares exatos fica a frente</li>
+        <li>Resultado inserido pelo Admin apos o jogo</li>
         <li>Ranking atualiza em tempo real para todos</li>
       </ul>
     </div>
-    <div class="card" style="border-color:var(--brasa)">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:1px;color:var(--dourado);margin-bottom:9px">ð¥ Exemplo</div>
-      <p style="font-size:0.81rem;line-height:1.85;color:var(--cinza)">
-        Real: <b style="color:var(--branco)">Brasil 2Ã1 Argentina</b><br>
-        Chutou 2Ã1 â <span style="color:#FFD700">+5 pts</span> (placar exato!)<br>
-        Chutou 3Ã0 â <span style="color:#4CAF50">+3 pts</span> (acertou o vencedor)<br>
-        Chutou 1Ã0 â <span style="color:#4CAF50">+3 pts</span> (acertou o vencedor)<br>
-        Chutou 0Ã1 â <span style="color:#FF5252">0 pts</span> (errou)
-      </p>
-    </div>
   </div>
 </div>
-<!-- MODAL -->
+
+<!-- MODAL CONFIRMAR -->
 <div class="mov" id="modal-confirm">
   <div class="modal">
     <div class="mtitle" id="mc-title">Confirmar?</div>
@@ -372,745 +352,592 @@ nav button.active{color:var(--ouro);border-bottom-color:var(--dourado)}
       <button class="btn btn-d" id="mc-ok">Confirmar</button>
     </div>
   </div>
-<div id="modal-userbets" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:2000;overflow-y:auto;padding:20px">
-  <div style="background:var(--carvao2);border:1px solid var(--fumo);border-radius:12px;max-width:480px;margin:0 auto;padding:16px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <div id="ubets-title" style="font-family:Bebas Neue,sans-serif;font-size:1.3rem;color:var(--ouro);letter-spacing:2px"></div>
-      <button onclick="closeUserBets()" style="background:none;border:none;color:var(--cinza);cursor:pointer;font-size:1.2rem;padding:4px 8px">X</button>
-    </div>
-    <div id="ubets-ranking" style="margin-bottom:14px"></div>
-    <div id="ubets-list"></div>
+</div>
+
+<!-- MODAL JOGO DETAIL -->
+<div id="modal-jogo">
+  <div class="mj-inner">
+    <button class="mj-close" onclick="closeMJ()">✕</button>
+    <div id="mj-content"></div>
   </div>
 </div>
-</div>
-<div id="toast"></div>
-<script>
-// âââ FIREBASE CONFIG â projeto churrasbet-bolao (INDEPENDENTE) âââ
-const FB_CONFIG = {
-  apiKey: "AIzaSyD1kQ2CKB_JQBz27JGPRXTK_BF6lMvLITw",
-  authDomain: "churrasbet-bolao.firebaseapp.com",
-  projectId: "churrasbet-bolao",
-  storageBucket: "churrasbet-bolao.firebasestorage.app",
-  messagingSenderId: "355223731614",
-  appId: "1:355223731614:web:8c5850ee19ef94edf12a8f"
-};
-// âââ CONSTANTES âââ
-const ADMIN_PW_KEY = 'chb_adminpw';
-const SESSION_KEY  = 'chb_session';
-const ADMIN_PW_DEFAULT = 'churrasco2026';
-const PALETTES = ['#E04040','#E07840','#D4AA00','#40A860','#208090','#4060D4','#8040C0','#C040A0','#60A0E0','#A0C040'];
-const EMOJIS   = ['ð¤ ','ð','ð¦','ð¥','â¡','ð¦','ð','ð','ð¯','ð'];
-const JOGOS = [
-  {id:'A1',g:'Grupo A',ta:'MÃ©xico ð²ð½',tb:'Ãfrica do Sul ð¿ð¦',dt:'2026-06-11T15:00',city:'Mexico City'},
-  {id:'A2',g:'Grupo A',ta:'Coreia do Sul ð°ð·',tb:'RepÃºblica Tcheca ð¨ð¿',dt:'2026-06-11T22:00',city:'Guadalajara'},
-  {id:'A3',g:'Grupo A',ta:'RepÃºblica Tcheca ð¨ð¿',tb:'Ãfrica do Sul ð¿ð¦',dt:'2026-06-18T12:00',city:'Atlanta'},
-  {id:'A4',g:'Grupo A',ta:'MÃ©xico ð²ð½',tb:'Coreia do Sul ð°ð·',dt:'2026-06-18T21:00',city:'Guadalajara'},
-  {id:'A5',g:'Grupo A',ta:'RepÃºblica Tcheca ð¨ð¿',tb:'MÃ©xico ð²ð½',dt:'2026-06-24T21:00',city:'Mexico City'},
-  {id:'A6',g:'Grupo A',ta:'Ãfrica do Sul ð¿ð¦',tb:'Coreia do Sul ð°ð·',dt:'2026-06-24T21:00',city:'Monterrey'},
-  {id:'B1',g:'Grupo B',ta:'CanadÃ¡ ð¨ð¦',tb:'BÃ³snia-Herz. ð§ð¦',dt:'2026-06-12T15:00',city:'Toronto'},
-  {id:'B2',g:'Grupo B',ta:'Catar ð¶ð¦',tb:'SuÃ­Ã§a ð¨ð­',dt:'2026-06-13T15:00',city:'Santa Clara'},
-  {id:'B3',g:'Grupo B',ta:'SuÃ­Ã§a ð¨ð­',tb:'BÃ³snia-Herz. ð§ð¦',dt:'2026-06-18T15:00',city:'Los Angeles'},
-  {id:'B4',g:'Grupo B',ta:'CanadÃ¡ ð¨ð¦',tb:'Catar ð¶ð¦',dt:'2026-06-18T18:00',city:'Vancouver'},
-  {id:'B5',g:'Grupo B',ta:'SuÃ­Ã§a ð¨ð­',tb:'CanadÃ¡ ð¨ð¦',dt:'2026-06-24T15:00',city:'Vancouver'},
-  {id:'B6',g:'Grupo B',ta:'BÃ³snia-Herz. ð§ð¦',tb:'Catar ð¶ð¦',dt:'2026-06-24T15:00',city:'Seattle'},
-  {id:'C1',g:'Grupo C',ta:'Brasil ð§ð·',tb:'Marrocos ð²ð¦',dt:'2026-06-13T18:00',city:'New Jersey'},
-  {id:'C2',g:'Grupo C',ta:'Haiti ð­ð¹',tb:'EscÃ³cia ð´ó §ó ¢ó ³ó £ó ´ó ¿',dt:'2026-06-13T21:00',city:'Foxboro'},
-  {id:'C3',g:'Grupo C',ta:'EscÃ³cia ð´ó §ó ¢ó ³ó £ó ´ó ¿',tb:'Marrocos ð²ð¦',dt:'2026-06-19T18:00',city:'Foxboro'},
-  {id:'C4',g:'Grupo C',ta:'Brasil ð§ð·',tb:'Haiti ð­ð¹',dt:'2026-06-19T20:30',city:'Philadelphia'},
-  {id:'C5',g:'Grupo C',ta:'EscÃ³cia ð´ó §ó ¢ó ³ó £ó ´ó ¿',tb:'Brasil ð§ð·',dt:'2026-06-24T18:00',city:'Miami'},
-  {id:'C6',g:'Grupo C',ta:'Marrocos ð²ð¦',tb:'Haiti ð­ð¹',dt:'2026-06-24T18:00',city:'Atlanta'},
-  {id:'D1',g:'Grupo D',ta:'EUA ðºð¸',tb:'Paraguai ðµð¾',dt:'2026-06-12T21:00',city:'Los Angeles'},
-  {id:'D2',g:'Grupo D',ta:'AustrÃ¡lia ð¦ðº',tb:'Turquia ð¹ð·',dt:'2026-06-13T00:00',city:'Vancouver'},
-  {id:'D3',g:'Grupo D',ta:'EUA ðºð¸',tb:'AustrÃ¡lia ð¦ðº',dt:'2026-06-19T15:00',city:'Seattle'},
-  {id:'D4',g:'Grupo D',ta:'Turquia ð¹ð·',tb:'Paraguai ðµð¾',dt:'2026-06-19T23:00',city:'Santa Clara'},
-  {id:'D5',g:'Grupo D',ta:'Turquia ð¹ð·',tb:'EUA ðºð¸',dt:'2026-06-25T22:00',city:'Los Angeles'},
-  {id:'D6',g:'Grupo D',ta:'Paraguai ðµð¾',tb:'AustrÃ¡lia ð¦ðº',dt:'2026-06-25T22:00',city:'Santa Clara'},
-  {id:'E1',g:'Grupo E',ta:'Alemanha ð©ðª',tb:'CuraÃ§ao ð¨ð¼',dt:'2026-06-14T13:00',city:'Houston'},
-  {id:'E2',g:'Grupo E',ta:'Costa do Marfim ð¨ð®',tb:'Equador ðªð¨',dt:'2026-06-14T19:00',city:'Philadelphia'},
-  {id:'E3',g:'Grupo E',ta:'Alemanha ð©ðª',tb:'Costa do Marfim ð¨ð®',dt:'2026-06-20T16:00',city:'Toronto'},
-  {id:'E4',g:'Grupo E',ta:'Equador ðªð¨',tb:'CuraÃ§ao ð¨ð¼',dt:'2026-06-20T20:00',city:'Kansas City'},
-  {id:'E5',g:'Grupo E',ta:'CuraÃ§ao ð¨ð¼',tb:'Costa do Marfim ð¨ð®',dt:'2026-06-25T16:00',city:'Philadelphia'},
-  {id:'E6',g:'Grupo E',ta:'Equador ðªð¨',tb:'Alemanha ð©ðª',dt:'2026-06-25T16:00',city:'New Jersey'},
-  {id:'F1',g:'Grupo F',ta:'Holanda ð³ð±',tb:'JapÃ£o ð¯ðµ',dt:'2026-06-14T16:00',city:'Dallas'},
-  {id:'F2',g:'Grupo F',ta:'SuÃ©cia ð¸ðª',tb:'TunÃ­sia ð¹ð³',dt:'2026-06-14T22:00',city:'Monterrey'},
-  {id:'F3',g:'Grupo F',ta:'Holanda ð³ð±',tb:'SuÃ©cia ð¸ðª',dt:'2026-06-20T13:00',city:'Houston'},
-  {id:'F4',g:'Grupo F',ta:'TunÃ­sia ð¹ð³',tb:'JapÃ£o ð¯ðµ',dt:'2026-06-20T00:00',city:'Monterrey'},
-  {id:'F5',g:'Grupo F',ta:'JapÃ£o ð¯ðµ',tb:'SuÃ©cia ð¸ðª',dt:'2026-06-25T19:00',city:'Dallas'},
-  {id:'F6',g:'Grupo F',ta:'TunÃ­sia ð¹ð³',tb:'Holanda ð³ð±',dt:'2026-06-25T19:00',city:'Kansas City'},
-  {id:'G1',g:'Grupo G',ta:'BÃ©lgica ð§ðª',tb:'Egito ðªð¬',dt:'2026-06-15T15:00',city:'Seattle'},
-  {id:'G2',g:'Grupo G',ta:'IrÃ£ ð®ð·',tb:'Nova ZelÃ¢ndia ð³ð¿',dt:'2026-06-15T21:00',city:'Los Angeles'},
-  {id:'G3',g:'Grupo G',ta:'BÃ©lgica ð§ðª',tb:'IrÃ£ ð®ð·',dt:'2026-06-21T15:00',city:'Los Angeles'},
-  {id:'G4',g:'Grupo G',ta:'Nova ZelÃ¢ndia ð³ð¿',tb:'Egito ðªð¬',dt:'2026-06-21T21:00',city:'Vancouver'},
-  {id:'G5',g:'Grupo G',ta:'Egito ðªð¬',tb:'IrÃ£ ð®ð·',dt:'2026-06-26T23:00',city:'Seattle'},
-  {id:'G6',g:'Grupo G',ta:'Nova ZelÃ¢ndia ð³ð¿',tb:'BÃ©lgica ð§ðª',dt:'2026-06-26T23:00',city:'Vancouver'},
-  {id:'H1',g:'Grupo H',ta:'Espanha ðªð¸',tb:'Cabo Verde ð¨ð»',dt:'2026-06-15T12:00',city:'Atlanta'},
-  {id:'H2',g:'Grupo H',ta:'ArÃ¡bia Saudita ð¸ð¦',tb:'Uruguai ðºð¾',dt:'2026-06-15T18:00',city:'Miami'},
-  {id:'H3',g:'Grupo H',ta:'Espanha ðªð¸',tb:'ArÃ¡bia Saudita ð¸ð¦',dt:'2026-06-21T12:00',city:'Atlanta'},
-  {id:'H4',g:'Grupo H',ta:'Uruguai ðºð¾',tb:'Cabo Verde ð¨ð»',dt:'2026-06-21T18:00',city:'Miami'},
-  {id:'H5',g:'Grupo H',ta:'Cabo Verde ð¨ð»',tb:'ArÃ¡bia Saudita ð¸ð¦',dt:'2026-06-26T20:00',city:'Houston'},
-  {id:'H6',g:'Grupo H',ta:'Uruguai ðºð¾',tb:'Espanha ðªð¸',dt:'2026-06-26T20:00',city:'Guadalajara'},
-  {id:'I1',g:'Grupo I',ta:'FranÃ§a ð«ð·',tb:'Senegal ð¸ð³',dt:'2026-06-16T15:00',city:'New Jersey'},
-  {id:'I2',g:'Grupo I',ta:'Iraque ð®ð¶',tb:'Noruega ð³ð´',dt:'2026-06-16T18:00',city:'Foxboro'},
-  {id:'I3',g:'Grupo I',ta:'FranÃ§a ð«ð·',tb:'Iraque ð®ð¶',dt:'2026-06-22T17:00',city:'Philadelphia'},
-  {id:'I4',g:'Grupo I',ta:'Noruega ð³ð´',tb:'Senegal ð¸ð³',dt:'2026-06-22T20:00',city:'New Jersey'},
-  {id:'I5',g:'Grupo I',ta:'Noruega ð³ð´',tb:'FranÃ§a ð«ð·',dt:'2026-06-26T15:00',city:'Foxboro'},
-  {id:'I6',g:'Grupo I',ta:'Senegal ð¸ð³',tb:'Iraque ð®ð¶',dt:'2026-06-26T15:00',city:'Toronto'},
-  {id:'J1',g:'Grupo J',ta:'Argentina ð¦ð·',tb:'ArgÃ©lia ð©ð¿',dt:'2026-06-16T21:00',city:'Kansas City'},
-  {id:'J2',g:'Grupo J',ta:'Ãustria ð¦ð¹',tb:'JordÃ¢nia ð¯ð´',dt:'2026-06-17T00:00',city:'Santa Clara'},
-  {id:'J3',g:'Grupo J',ta:'Argentina ð¦ð·',tb:'Ãustria ð¦ð¹',dt:'2026-06-22T13:00',city:'Dallas'},
-  {id:'J4',g:'Grupo J',ta:'JordÃ¢nia ð¯ð´',tb:'ArgÃ©lia ð©ð¿',dt:'2026-06-22T23:00',city:'Santa Clara'},
-  {id:'J5',g:'Grupo J',ta:'JordÃ¢nia ð¯ð´',tb:'Argentina ð¦ð·',dt:'2026-06-27T22:00',city:'Dallas'},
-  {id:'J6',g:'Grupo J',ta:'ArgÃ©lia ð©ð¿',tb:'Ãustria ð¦ð¹',dt:'2026-06-27T22:00',city:'Kansas City'},
-  {id:'K1',g:'Grupo K',ta:'Portugal ðµð¹',tb:'Congo RD ð¨ð©',dt:'2026-06-17T13:00',city:'Houston'},
-  {id:'K2',g:'Grupo K',ta:'UzbequistÃ£o ðºð¿',tb:'ColÃ´mbia ð¨ð´',dt:'2026-06-17T22:00',city:'Mexico City'},
-  {id:'K3',g:'Grupo K',ta:'Portugal ðµð¹',tb:'UzbequistÃ£o ðºð¿',dt:'2026-06-23T13:00',city:'Houston'},
-  {id:'K4',g:'Grupo K',ta:'ColÃ´mbia ð¨ð´',tb:'Congo RD ð¨ð©',dt:'2026-06-23T22:00',city:'Guadalajara'},
-  {id:'K5',g:'Grupo K',ta:'ColÃ´mbia ð¨ð´',tb:'Portugal ðµð¹',dt:'2026-06-27T19:30',city:'Miami'},
-  {id:'K6',g:'Grupo K',ta:'Congo RD ð¨ð©',tb:'UzbequistÃ£o ðºð¿',dt:'2026-06-27T19:30',city:'Atlanta'},
-  {id:'L1',g:'Grupo L',ta:'Inglaterra ð´ó §ó ¢ó ¥ó ®ó §ó ¿',tb:'CroÃ¡cia ð­ð·',dt:'2026-06-17T16:00',city:'Dallas'},
-  {id:'L2',g:'Grupo L',ta:'Gana ð¬ð­',tb:'PanamÃ¡ ðµð¦',dt:'2026-06-17T19:00',city:'Toronto'},
-  {id:'L3',g:'Grupo L',ta:'Inglaterra ð´ó §ó ¢ó ¥ó ®ó §ó ¿',tb:'Gana ð¬ð­',dt:'2026-06-23T16:00',city:'Foxboro'},
-  {id:'L4',g:'Grupo L',ta:'PanamÃ¡ ðµð¦',tb:'CroÃ¡cia ð­ð·',dt:'2026-06-23T19:00',city:'Toronto'},
-  {id:'L5',g:'Grupo L',ta:'PanamÃ¡ ðµð¦',tb:'Inglaterra ð´ó §ó ¢ó ¥ó ®ó §ó ¿',dt:'2026-06-27T17:00',city:'New Jersey'},
-  {id:'L6',g:'Grupo L',ta:'CroÃ¡cia ð­ð·',tb:'Gana ð¬ð­',dt:'2026-06-27T17:00',city:'Philadelphia'},
-];
-// âââ ESTADO LOCAL âââ
-let db, auth;
-let currentUser = null;
-let isAdmin = false;
-let jogoFilter = 'todos';
-let unsub_users = null, unsub_results = null, unsub_palpites = null;
-let cacheUsers = [], cacheResults = {}, cachePalpites = {}, cacheMmJogos = [], cacheMmResults = {};
-let currentPage = 'ranking';
 
-const SEED_USERS = [
-  {id:'u_michel',     name:'Michel',       color:'#E04040', emoji:'ð¤ '},
-  {id:'u_netosoares', name:'Neto Soares',  color:'#E07840', emoji:'ð'},
-  {id:'u_luigi',      name:'Luigi Gonzaga',color:'#D4AA00', emoji:'ð¥'},
-  {id:'u_netomargraf',name:'Neto Margraf', color:'#40A860', emoji:'ð¦'},
-  {id:'u_miguel',     name:'Miguel',       color:'#208090', emoji:'â¡'},
-  {id:'u_gabriel',    name:'Gabriel',      color:'#4060D4', emoji:'ð¦'},
-];
-const SEED_RESULTS = {
-  'A1': {a:2, b:0},
+<div id="toast"></div>
+
+<script>
+// ═══ CONFIG FIREBASE ═══
+const FB = {
+  apiKey:"AIzaSyD1kQ2CKB_JQBz27JGPRXTK_BF6lMvLITw",
+  authDomain:"churrasbet-bolao.firebaseapp.com",
+  projectId:"churrasbet-bolao",
+  storageBucket:"churrasbet-bolao.firebasestorage.app",
+  messagingSenderId:"355223731614",
+  appId:"1:355223731614:web:8c5850ee19ef94edf12a8f"
 };
-const SEED_PALPITES = [
-  {userId:'u_michel',     jogoId:'A1', a:3, b:2},
-  {userId:'u_michel',     jogoId:'A2', a:1, b:2},
-  {userId:'u_netosoares', jogoId:'A1', a:2, b:1},
-  {userId:'u_netosoares', jogoId:'A2', a:2, b:2},
-  {userId:'u_luigi',      jogoId:'A1', a:3, b:0},
-  {userId:'u_luigi',      jogoId:'A2', a:1, b:2},
-  {userId:'u_netomargraf',jogoId:'A1', a:2, b:0},
-  {userId:'u_netomargraf',jogoId:'A2', a:2, b:1},
-  {userId:'u_miguel',     jogoId:'A1', a:2, b:2},
-  {userId:'u_miguel',     jogoId:'A2', a:2, b:1},
-  {userId:'u_miguel',     jogoId:'B1', a:2, b:2},
-  {userId:'u_gabriel',    jogoId:'A1', a:1, b:0},
-  {userId:'u_gabriel',    jogoId:'A2', a:2, b:1},
+const ADMIN_PW_KEY='chb_adminpw', SESSION_KEY='chb_session', ADMIN_PW_DEFAULT='churrasco2026';
+const PALETTES=['#E04040','#E07840','#D4AA00','#40A860','#208090','#4060D4','#8040C0','#C040A0','#60A0E0','#A0C040'];
+const EMOJIS=['🤠','😎','🦁','🔥','⚡','🦅','🍀','🌟','🎯','🐉'];
+
+// ═══ CHAVEAMENTO 16 AVOS — da imagem ═══
+// Ordem: [taA, taB] onde A=time superior no chaveamento
+const DEZESSEIS = [
+  {id:'d01',fase:'16 Avos',ta:'Africa do Sul 🇿🇦',tb:'Canada 🇨🇦',dt:'2026-06-28T12:00'},
+  {id:'d02',fase:'16 Avos',ta:'Brasil 🇧🇷',tb:'Japao 🇯🇵',dt:'2026-06-28T16:00'},
+  {id:'d03',fase:'16 Avos',ta:'Franca 🇫🇷',tb:'Suecia 🇸🇪',dt:'2026-06-28T20:00'},
+  {id:'d04',fase:'16 Avos',ta:'Costa do Marfim 🇨🇮',tb:'Noruega 🇳🇴',dt:'2026-06-29T12:00'},
+  {id:'d05',fase:'16 Avos',ta:'Africa do Sul 🇿🇦',tb:'Canada 🇨🇦',dt:'2026-06-29T16:00'}, // placeholder will be overridden
+  {id:'d06',fase:'16 Avos',ta:'Holanda 🇳🇱',tb:'Marrocos 🇲🇦',dt:'2026-06-29T20:00'},
+  {id:'d07',fase:'16 Avos',ta:'Mexico 🇲🇽',tb:'Equador 🇪🇨',dt:'2026-06-30T12:00'},
+  {id:'d08',fase:'16 Avos',ta:'Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿',tb:'RD Congo 🇨🇩',dt:'2026-06-30T16:00'},
+  {id:'d09',fase:'16 Avos',ta:'Portugal 🇵🇹',tb:'Croacia 🇭🇷',dt:'2026-06-30T20:00'},
+  {id:'d10',fase:'16 Avos',ta:'Argentina 🇦🇷',tb:'Cabo Verde 🇨🇻',dt:'2026-07-01T12:00'},
+  {id:'d11',fase:'16 Avos',ta:'Espanha 🇪🇸',tb:'Austria 🇦🇹',dt:'2026-07-01T16:00'},
+  {id:'d12',fase:'16 Avos',ta:'Australia 🇦🇺',tb:'Egito 🇪🇬',dt:'2026-07-01T20:00'},
+  {id:'d13',fase:'16 Avos',ta:'EUA 🇺🇸',tb:'Bosnia-Herzeg. 🇧🇦',dt:'2026-07-02T12:00'},
+  {id:'d14',fase:'16 Avos',ta:'Suica 🇨🇭',tb:'Argelia 🇩🇿',dt:'2026-07-02T16:00'},
+  {id:'d15',fase:'16 Avos',ta:'Belgica 🇧🇪',tb:'Senegal 🇸🇳',dt:'2026-07-02T20:00'},
+  {id:'d16',fase:'16 Avos',ta:'Colombia 🇨🇴',tb:'Gana 🇬🇭',dt:'2026-07-03T12:00'},
 ];
-async function seedFirebase() {
-  const usersSnap = await db.collection('chb_users').limit(1).get();
-  if (!usersSnap.empty) return;
-  const batch = db.batch();
-  SEED_USERS.forEach(u => {
-    const ref = db.collection('chb_users').doc(u.id);
-    batch.set(ref, {name:u.name, color:u.color, emoji:u.emoji, createdAt: firebase.firestore.FieldValue.serverTimestamp()});
-  });
-  Object.entries(SEED_RESULTS).forEach(([id,r]) => {
-    const ref = db.collection('chb_results').doc(id);
-    batch.set(ref, {a:r.a, b:r.b, savedAt: firebase.firestore.FieldValue.serverTimestamp()});
-  });
-  SEED_PALPITES.forEach(p => {
-    const ref = db.collection('chb_palpites').doc(p.userId+'_'+p.jogoId);
-    batch.set(ref, {userId:p.userId, jogoId:p.jogoId, a:p.a, b:p.b, updatedAt: firebase.firestore.FieldValue.serverTimestamp()});
-  });
-  await batch.commit();
-  console.log('Seed OK');
-}
-// âââ FIREBASE INIT âââ
-firebase.initializeApp(FB_CONFIG);
-db   = firebase.firestore();
-auth = firebase.auth();
-auth.onAuthStateChanged(user => {
-  if (user) {
-    const sess = loadSession();
-    if (sess) { applySession(sess); return; }
-  }
-  const sess = loadSession();
-  if (sess) {
-    auth.signInAnonymously().then(() => applySession(sess)).catch(showLogin);
-  } else {
-    showLogin();
-  }
+
+// ═══ SEED ═══
+const SEED_USERS = [
+  {id:'u_luigi',       name:'Luigi',       color:'#D4AA00', emoji:'🔥'},
+  {id:'u_michel',      name:'Michel',      color:'#E04040', emoji:'🤠'},
+  {id:'u_miguel',      name:'Miguel',      color:'#208090', emoji:'⚡'},
+  {id:'u_netomargraf', name:'Neto Margraf',color:'#40A860', emoji:'🦁'},
+  {id:'u_netosoares',  name:'Neto Soares', color:'#E07840', emoji:'😎'},
+  {id:'u_gabriel',     name:'Gabriel',     color:'#4060D4', emoji:'🦅'},
+];
+// Jogo d01: Africa do Sul 🇿🇦 x Canada 🇨🇦 — resultado oficial 0x1
+const SEED_RESULTS = { 'd01':{a:0,b:1} };
+const SEED_PALPITES = [
+  {userId:'u_luigi',       jogoId:'d01', a:0, b:2},
+  {userId:'u_michel',      jogoId:'d01', a:1, b:2},
+  {userId:'u_miguel',      jogoId:'d01', a:1, b:2},
+  {userId:'u_netomargraf', jogoId:'d01', a:1, b:2},
+  {userId:'u_netosoares',  jogoId:'d01', a:0, b:2},
+  {userId:'u_gabriel',     jogoId:'d01', a:1, b:0},
+];
+
+// ═══ ESTADO ═══
+let db, auth;
+let currentUser=null, isAdmin=false, currentPage='ranking';
+let cacheUsers=[], cacheJogos=[], cacheResults={}, cachePalpites={};
+let unsub_u=null, unsub_j=null, unsub_r=null, unsub_p=null;
+let chaveFilter='todos';
+
+// ═══ FIREBASE ═══
+firebase.initializeApp(FB);
+db=firebase.firestore(); auth=firebase.auth();
+
+auth.onAuthStateChanged(u=>{
+  const sess=loadSess();
+  if(sess){ auth.currentUser ? applySession(sess) : auth.signInAnonymously().then(()=>applySession(sess)).catch(showLogin); }
+  else showLogin();
 });
-function loadSession() {
-  try { return JSON.parse(localStorage.getItem(SESSION_KEY)); } catch(e){ return null; }
-}
-function saveSession(data) {
-  localStorage.setItem(SESSION_KEY, JSON.stringify(data));
-}
-function applySession(sess) {
-  if (sess.isAdmin) {
-    isAdmin = true;
-    currentUser = {id:'__admin__', name:'Admin', color:'#8B3A0F', emoji:'ð¥'};
-  } else {
-    isAdmin = false;
-    currentUser = {id: sess.userId, name: sess.userName, color: sess.userColor||'#E04040', emoji: sess.userEmoji||'ð¤ '};
-  }
+
+function loadSess(){ try{return JSON.parse(localStorage.getItem(SESSION_KEY));}catch(e){return null;} }
+function saveSess(d){ localStorage.setItem(SESSION_KEY,JSON.stringify(d)); }
+
+function applySession(s){
+  if(s.isAdmin){ isAdmin=true; currentUser={id:'__admin__',name:'Admin',color:'#8B3A0F',emoji:'🔥'}; }
+  else{ isAdmin=false; currentUser={id:s.userId,name:s.userName,color:s.userColor||'#E04040',emoji:s.userEmoji||'🤠'}; }
   startApp();
 }
-function showLogin() {
-  document.getElementById('splash').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'flex';
+function showLogin(){
+  document.getElementById('splash').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
   loadUsersOnce();
 }
-function loadUsersOnce() {
-  db.collection('chb_users').orderBy('createdAt').get().then(snap => {
-    const users = snap.docs.map(d => ({id:d.id,...d.data()}));
-    const sel = document.getElementById('ls-select');
-    sel.innerHTML = '<option value="">â Selecione seu nome â</option>';
-    users.forEach(u => sel.innerHTML += `<option value="${u.id}" data-color="${u.color}" data-emoji="${u.emoji}">${u.emoji} ${escH(u.name)}</option>`);
+function loadUsersOnce(){
+  db.collection('chb_users').orderBy('createdAt').get().then(snap=>{
+    const sel=document.getElementById('ls-select');
+    sel.innerHTML='<option value="">— Selecione seu nome —</option>';
+    snap.docs.forEach(d=>{
+      const u={id:d.id,...d.data()};
+      sel.innerHTML+=`<option value="${u.id}" data-color="${u.color}" data-emoji="${u.emoji}">${u.emoji} ${escH(u.name)}</option>`;
+    });
   });
 }
-function toggleAdminSection() {
-  const el = document.getElementById('admin-login-section');
-  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+function toggleAdmSec(){ const e=document.getElementById('adm-login-sec'); e.style.display=e.style.display==='none'?'block':'none'; }
+function doLogin(){
+  const sel=document.getElementById('ls-select'); const id=sel.value;
+  if(!id){toast('Selecione seu nome!');return;}
+  const opt=sel.options[sel.selectedIndex];
+  currentUser={id,name:opt.text.replace(/^.\s/,'').trim(),color:opt.dataset.color||'#E04040',emoji:opt.dataset.emoji||'🤠'};
+  isAdmin=false; saveSess({userId:id,userName:currentUser.name,userColor:currentUser.color,userEmoji:currentUser.emoji});
+  auth.signInAnonymously().then(startApp).catch(e=>toast('Erro: '+e.message));
 }
-function doLogin() {
-  const sel = document.getElementById('ls-select');
-  const id = sel.value;
-  if (!id) { toastMsg('Selecione seu nome!'); return; }
-  const opt = sel.options[sel.selectedIndex];
-  const name  = opt.text.replace(/^.\s/,'').trim();
-  const color = opt.dataset.color || '#E04040';
-  const emoji = opt.dataset.emoji || 'ð¤ ';
-  currentUser = {id, name, color, emoji};
-  isAdmin = false;
-  saveSession({userId:id, userName:name, userColor:color, userEmoji:emoji});
-  auth.signInAnonymously().then(startApp).catch(e => toastMsg('Erro: '+e.message));
+function doAdminLogin(){
+  const pw=document.getElementById('ls-pw').value;
+  if(pw!==(localStorage.getItem(ADMIN_PW_KEY)||ADMIN_PW_DEFAULT)){toast('Senha incorreta!');return;}
+  isAdmin=true; currentUser={id:'__admin__',name:'Admin',color:'#8B3A0F',emoji:'🔥'};
+  saveSess({isAdmin:true}); auth.signInAnonymously().then(startApp).catch(e=>toast('Erro: '+e.message));
 }
-function doAdminLogin() {
-  const pw = document.getElementById('ls-pw').value;
-  const stored = localStorage.getItem(ADMIN_PW_KEY) || ADMIN_PW_DEFAULT;
-  if (pw !== stored) { toastMsg('Senha incorreta!'); return; }
-  isAdmin = true;
-  currentUser = {id:'__admin__', name:'Admin', color:'#8B3A0F', emoji:'ð¥'};
-  saveSession({isAdmin:true});
-  auth.signInAnonymously().then(startApp).catch(e => toastMsg('Erro: '+e.message));
-}
-function logout() {
-  if (unsub_users)   { unsub_users();   unsub_users=null; }
-  if (unsub_results) { unsub_results(); unsub_results=null; }
-  if (unsub_palpites){ unsub_palpites();unsub_palpites=null; }
+function logout(){
+  [unsub_u,unsub_j,unsub_r,unsub_p].forEach(f=>f&&f());
   localStorage.removeItem(SESSION_KEY);
-  currentUser = null; isAdmin = false;
-  cacheUsers=[]; cacheResults={}; cachePalpites={};
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('adminBar').style.display = 'none';
-  document.getElementById('navAdmin').style.display = 'none';
-  document.getElementById('ls-pw').value = '';
-  document.getElementById('admin-login-section').style.display = 'none';
+  currentUser=null; isAdmin=false; cacheUsers=[]; cacheJogos=[]; cacheResults={}; cachePalpites={};
+  document.getElementById('app').style.display='none';
+  document.getElementById('adminBar').style.display='none';
+  document.getElementById('navAdmin').style.display='none';
+  document.getElementById('ls-pw').value='';
+  document.getElementById('adm-login-sec').style.display='none';
   showLogin();
 }
-function startApp() {
-  document.getElementById('splash').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  document.getElementById('hdr-name').textContent  = currentUser.name;
-  document.getElementById('hdr-emoji').textContent = currentUser.emoji;
-  if (isAdmin) {
-    document.getElementById('adminBar').style.display = 'block';
-    document.getElementById('navAdmin').style.display = 'block';
-  }
+
+async function seedFirebase(){
+  const snap=await db.collection('chb_users').limit(1).get();
+  if(!snap.empty) return;
+  const b=db.batch();
+  SEED_USERS.forEach(u=>b.set(db.collection('chb_users').doc(u.id),{name:u.name,color:u.color,emoji:u.emoji,createdAt:firebase.firestore.FieldValue.serverTimestamp()}));
+  // seed jogos d01-d16
+  DEZESSEIS.forEach(j=>b.set(db.collection('chb_jogos').doc(j.id),{ta:j.ta,tb:j.tb,fase:j.fase,dt:j.dt,createdAt:firebase.firestore.FieldValue.serverTimestamp()}));
+  Object.entries(SEED_RESULTS).forEach(([id,r])=>b.set(db.collection('chb_results').doc(id),{a:r.a,b:r.b,savedAt:firebase.firestore.FieldValue.serverTimestamp()}));
+  SEED_PALPITES.forEach(p=>b.set(db.collection('chb_palpites').doc(p.userId+'_'+p.jogoId),{userId:p.userId,jogoId:p.jogoId,a:p.a,b:p.b,updatedAt:firebase.firestore.FieldValue.serverTimestamp()}));
+  await b.commit(); console.log('Seed OK');
+}
+
+function startApp(){
+  document.getElementById('splash').style.display='none';
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('hdr-name').textContent=currentUser.name;
+  document.getElementById('hdr-emoji').textContent=currentUser.emoji;
+  if(isAdmin){ document.getElementById('adminBar').style.display='block'; document.getElementById('navAdmin').style.display='block'; }
   seedFirebase().catch(console.error);
   startListeners();
-  populateAdminJogoSelect();
   showPage('ranking');
 }
-function startListeners() {
-  unsub_users = db.collection('chb_users').orderBy('createdAt')
-    .onSnapshot(snap => {
-      cacheUsers = snap.docs.map(d => ({id:d.id,...d.data()}));
-      if (currentPage==='ranking') renderRanking();
-      if (currentPage==='admin')   renderAdminChips();
-      loadUsersOnce();
-    });
-  unsub_results = db.collection('chb_results')
-    .onSnapshot(snap => {
-      cacheResults = {};
-      snap.docs.forEach(d => cacheResults[d.id] = d.data());
-      if (currentPage==='ranking') renderRanking();
-      if (currentPage==='jogos')   renderJogos();
-      if (currentPage==='palpites') renderPalpites();
-      populateAdminJogoSelect();
-    });
-  let pQuery = db.collection('chb_palpites');
-  unsub_palpites = pQuery.onSnapshot(snap => {
-    cachePalpites = {};
-    snap.docs.forEach(d => {
-      const data = d.data();
-      cachePalpites[data.userId+'_'+data.jogoId] = {a:data.a, b:data.b};
-    });
-    if (currentPage==='ranking')  renderRanking();
-    if (currentPage==='jogos')    renderJogos();
-    if (currentPage==='palpites') renderPalpites();
+
+function startListeners(){
+  unsub_u=db.collection('chb_users').orderBy('createdAt').onSnapshot(snap=>{
+    cacheUsers=snap.docs.map(d=>({id:d.id,...d.data()}));
+    if(currentPage==='ranking') renderRanking();
+    if(currentPage==='admin') renderChips();
+    loadUsersOnce();
   });
-  db.collection('chb_mm').orderBy('dt').onSnapshot(snap => {
-    cacheMmJogos = snap.docs.map(d => ({id: d.id, ...d.data()}));
-    if (currentPage === 'palpites') renderPalpites();
-    if (currentPage === 'admin') renderMmAdmin();
+  unsub_j=db.collection('chb_jogos').orderBy('createdAt').onSnapshot(snap=>{
+    cacheJogos=snap.docs.map(d=>({id:d.id,...d.data()}));
+    if(currentPage==='chave') renderChave(true);
+    if(currentPage==='palpites') renderPalpites();
+    populateResSelect();
   });
-  db.collection('chb_mm_results').onSnapshot(snap => {
-    cacheMmResults = {};
-    snap.docs.forEach(d => { cacheMmResults[d.id] = d.data(); });
-    if (currentPage === 'palpites') renderPalpites();
-    if (currentPage === 'ranking') renderRanking();
+  unsub_r=db.collection('chb_results').onSnapshot(snap=>{
+    cacheResults={};
+    snap.docs.forEach(d=>cacheResults[d.id]=d.data());
+    if(currentPage==='ranking') renderRanking();
+    if(currentPage==='chave') renderChave(false);
+    if(currentPage==='palpites') renderPalpites();
+    populateResSelect();
+  });
+  unsub_p=db.collection('chb_palpites').onSnapshot(snap=>{
+    cachePalpites={};
+    snap.docs.forEach(d=>{const x=d.data(); cachePalpites[x.userId+'_'+x.jogoId]={a:x.a,b:x.b};});
+    if(currentPage==='ranking') renderRanking();
+    if(currentPage==='chave') renderChave(false);
+    if(currentPage==='palpites') renderPalpites();
   });
 }
-function showPage(id) {
-  currentPage = id;
+
+// ═══ NAV ═══
+function showPage(id){
+  currentPage=id;
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  const map={ranking:'ranking',jogos:'jogos',palpites:'palpit',admin:'admin',regras:'regras'};
+  const map={ranking:'ranking',chave:'chave',palpites:'palpit',admin:'admin',regras:'regras'};
   [...document.querySelectorAll('nav button')].find(b=>b.textContent.toLowerCase().includes(map[id].slice(0,5)))?.classList.add('active');
-  if (id==='ranking')  renderRanking();
-  if (id==='jogos')    renderJogos(true);
-  if (id==='palpites') renderPalpites();
-  if (id==='admin')    renderAdmin();
+  if(id==='ranking') renderRanking();
+  if(id==='chave') renderChave(true);
+  if(id==='palpites') renderPalpites();
+  if(id==='admin') renderAdmin();
 }
-function kickoffDate(j) { return new Date(j.dt+':00-04:00'); }
-function isBlocked(j)   { return Date.now() >= kickoffDate(j).getTime(); }
-function isEncerrado(j) { return !!cacheResults[j.id]; }
-function fmtDT(j) {
-  const d  = kickoffDate(j);
-  const brt = new Date(d.getTime()+3600000);
-  const dias=['ð Dom','ð Seg','ð Ter','ð Qua','ð Qui','ð Sex','ð SÃ¡b'];
-  const dd=String(brt.getDate()).padStart(2,'0');
-  const mm=String(brt.getMonth()+1).padStart(2,'0');
-  const hh=String(brt.getHours()).padStart(2,'0');
-  const mn=String(brt.getMinutes()).padStart(2,'0');
-  const dias2=['Dom','Seg','Ter','Qua','Qui','Sex','SÃ¡b'];
-  return `${dias2[brt.getDay()]} ${dd}/${mm} Â· ${hh}h${mn} BRT`;
+
+// ═══ TEMPO ═══
+function kickoff(j){ return new Date(j.dt+':00-03:00'); } // BRT = UTC-3
+function isBlocked(j){ return Date.now()>=kickoff(j).getTime(); }
+function isEnc(j){ return !!cacheResults[j.id]; }
+function fmtDT(j){
+  if(!j.dt) return '—';
+  const d=kickoff(j);
+  const dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
+  const dd=String(d.getDate()).padStart(2,'0');
+  const mm=String(d.getMonth()+1).padStart(2,'0');
+  const hh=String(d.getHours()).padStart(2,'0');
+  const mn=String(d.getMinutes()).padStart(2,'0');
+  return `${dias[d.getDay()]} ${dd}/${mm} · ${hh}h${mn} BRT`;
 }
-function calcPts(pA,pB,rA,rB) {
-  if (pA===rA&&pB===rB) return 5;
-  const vP=Math.sign(pA-pB), vR=Math.sign(rA-rB);
-  if (vP===vR) return 3;
+
+// ═══ PONTUACAO ═══
+function calcPts(pA,pB,rA,rB){
+  if(pA===rA&&pB===rB) return 5;
+  if(Math.sign(pA-pB)===Math.sign(rA-rB)) return 3;
   return 0;
 }
-function userStats(uid) {
+function userStats(uid){
   let pts=0,ex=0,ac=0,jg=0;
-  JOGOS.forEach(j=>{
+  cacheJogos.forEach(j=>{
     const r=cacheResults[j.id]; if(!r) return;
     const p=cachePalpites[uid+'_'+j.id]; if(!p) return;
-    jg++;
-    const sc=calcPts(p.a,p.b,r.a,r.b);
+    jg++; const sc=calcPts(p.a,p.b,r.a,r.b);
     pts+=sc; if(sc===5)ex++; if(sc>0)ac++;
   });
-  return {pts,ex,ac,jg};
+  return{pts,ex,ac,jg};
 }
-function renderRanking() {
+
+// ═══ RANKING ═══
+function renderRanking(){
   const el=document.getElementById('ranking-list');
-  if (!cacheUsers.length) {
-    el.innerHTML=`<div class="empty"><div class="ico">ð</div><p>Nenhum participante ainda.<br>Admin precisa cadastrar o pessoal!</p></div>`;return;
-  }
-  const list=cacheUsers.map(u=>({...u,...userStats(u.id)}))
-    .sort((a,b)=>b.pts-a.pts||b.ex-a.ex||b.ac-a.ac);
+  if(!cacheUsers.length){ el.innerHTML='<div class="empty"><div class="ico">🍖</div><p>Nenhum participante ainda.</p></div>'; return; }
+  const list=cacheUsers.map(u=>({...u,...userStats(u.id)})).sort((a,b)=>b.pts-a.pts||b.ex-a.ex||b.ac-a.ac);
   const pc=['rk-gold','rk-silver','rk-bronze'];
   el.innerHTML=list.map((u,i)=>`
-    <div class="rk-item" style="cursor:pointer" onclick="showUserBets('${u.id}')">
-      <div class="rk-pos ${pc[i]||''}">${i===0?'ð':i+1}</div>
+    <div class="rk-item" onclick="showUserDetail('${u.id}')">
+      <div class="rk-pos ${pc[i]||''}">${i===0?'🏆':i+1}</div>
       <div class="rk-av" style="background:${u.color}22;border-color:${u.color}">${u.emoji}</div>
       <div class="rk-info">
         <div class="rk-name">${escH(u.name)}</div>
-        <div class="rk-sub">${u.ex} exatos Â· ${u.ac} acertos Â· ${u.jg} palpites</div>
+        <div class="rk-sub">${u.ex} exatos · ${u.ac} acertos · ${u.jg} palpites</div>
       </div>
       <div class="rk-pts">${u.pts}<span>pts</span></div>
     </div>`).join('');
 }
-function renderJogos(rebuild) {
-  if (rebuild) buildFbar();
-  const el = document.getElementById('jogos-list');
-  let list = [...JOGOS];
-  if (jogoFilter!=='todos') list=list.filter(j=>j.g===jogoFilter);
-  el.innerHTML = list.map(j=>jogoCardHtml(j,true)).join('');
-}
-function buildFbar() {
-  const grps=[...new Set(JOGOS.map(j=>j.g))];
-  document.getElementById('jogos-fbar').innerHTML=
-    `<button class="fb ${jogoFilter==='todos'?'active':''}" onclick="setFilter('todos',this)">Todos</button>`+
-    grps.map(g=>`<button class="fb ${jogoFilter===g?'active':''}" onclick="setFilter('${escH(g)}',this)">${g}</button>`).join('');
-}
-function setFilter(f,btn) {
-  jogoFilter=f;
-  document.querySelectorAll('#jogos-fbar .fb').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderJogos(false);
-}
-function jogoCardHtml(j, showPalpites) {
-  const enc=isEncerrado(j), blk=isBlocked(j);
-  const r=cacheResults[j.id];
-  let mid, pill;
-  if (enc) {
-    mid=`<div class="jresult">${r.a} Ã ${r.b}</div>`;
-    pill=`<span class="jpill sp-d">â Encerrado</span>`;
-  } else if (blk) {
-    mid=`<div class="jtbd">ð´ Ao vivo</div>`;
-    pill=`<span class="jpill sp-l">Ao vivo</span>`;
-  } else {
-    mid=`<div class="jvs">Ã</div>`;
-    pill=`<span class="jpill sp-p">Pendente</span>`;
-  }
-  let prows='';
-  if (showPalpites) {
-    cacheUsers.forEach(u=>{
-      const p=cachePalpites[u.id+'_'+j.id]; if(!p) return;
-      let cls='ptnd',lbl='â';
-      if(enc){const sc=calcPts(p.a,p.b,r.a,r.b);lbl=sc===5?'+5':sc===3?'+3':'0';cls=['pt0','pt0','','pt3','','pt5'][sc];}
-      prows+=`<div class="prow"><span>${u.emoji}</span><span class="puser">${escH(u.name)}</span><span class="pplc">${p.a} Ã ${p.b}</span><span class="ppts ${cls}">${lbl}</span></div>`;
+
+// ═══ CHAVEAMENTO ═══
+const FASE_ORDER={['16 Avos']:1,Oitavas:2,Quartas:3,Semifinal:4,Terceiro:5,Final:6};
+const FASE_LABEL={'16 Avos':'⚔️ 16 Avos','Oitavas':'⚔️ Oitavas','Quartas':'⚔️ Quartas','Semifinal':'🔥 Semifinal','Terceiro':'🥉 3o Lugar','Final':'🏆 Final'};
+
+function renderChave(rebuild){
+  if(rebuild) buildChaveFbar();
+  const el=document.getElementById('chave-list');
+  if(!cacheJogos.length){ el.innerHTML='<div class="empty"><div class="ico">⚔️</div><p>Nenhum jogo cadastrado ainda.</p></div>'; return; }
+  const fases=[...new Set(cacheJogos.map(j=>j.fase))].sort((a,b)=>(FASE_ORDER[a]||9)-(FASE_ORDER[b]||9));
+  let html='';
+  fases.forEach(fase=>{
+    if(chaveFilter!=='todos'&&chaveFilter!==fase) return;
+    const jogos=cacheJogos.filter(j=>j.fase===fase).sort((a,b)=>(a.dt||'').localeCompare(b.dt||''));
+    html+=`<div class="chave-fase"><div class="chave-fase-title">${FASE_LABEL[fase]||fase}</div><div class="chave-grid">`;
+    jogos.forEach(j=>{
+      const enc=isEnc(j), r=cacheResults[j.id];
+      const flagA=getFlag(j.ta), nomA=stripFlag(j.ta);
+      const flagB=getFlag(j.tb), nomB=stripFlag(j.tb);
+      let placar, pillClass, pillTxt;
+      if(enc){ placar=`${r.a} × ${r.b}`; pillClass='sp-d'; pillTxt='✔ Encerrado'; }
+      else if(isBlocked(j)){ placar='?'; pillClass='sp-l'; pillTxt='🔴 Ao vivo'; }
+      else{ placar='×'; pillClass='sp-p'; pillTxt='Pendente'; }
+      html+=`<div class="chave-jogo${enc?' enc':''}" onclick="openJogo('${j.id}')">
+        <div class="chave-times">
+          <div class="chave-time"><span class="chave-flag">${flagA}</span><span class="chave-nome">${escH(nomA)}</span></div>
+          <div class="chave-placar${enc?'':' tbd'}">${placar}</div>
+          <div class="chave-time right"><span class="chave-nome">${escH(nomB)}</span><span class="chave-flag">${flagB}</span></div>
+        </div>
+        <div class="chave-meta">
+          <span class="chave-dt">${fmtDT(j)}</span>
+          <span class="chave-pill jpill ${pillClass}">${pillTxt}</span>
+        </div>
+      </div>`;
     });
-  }
-  return `<div class="jcard${blk&&!enc?' locked':''}">
-    <div class="jhead">
-      <span class="jrodada">${escH(j.g)}</span>
-      <div style="display:flex;align-items:center;gap:5px">
-        <span class="jdt">${fmtDT(j)}</span>${pill}
-      </div>
-    </div>
-    <div class="jplacar">
-      <div class="jtime"><div class="jflag">${getFlag(j.ta)}</div><div class="jnome">${escH(stripFlag(j.ta))}</div></div>
-      <div class="jmid">${mid}</div>
-      <div class="jtime"><div class="jflag">${getFlag(j.tb)}</div><div class="jnome">${escH(stripFlag(j.tb))}</div></div>
-    </div>
-    ${prows?`<div>${prows}</div>`:''}
-  </div>`;
+    html+='</div></div>';
+  });
+  el.innerHTML=html||'<div class="empty"><div class="ico">⚔️</div><p>Nenhum jogo nessa fase.</p></div>';
 }
-function renderPalpites() {
+function buildChaveFbar(){
+  const fases=[...new Set(cacheJogos.map(j=>j.fase))].sort((a,b)=>(FASE_ORDER[a]||9)-(FASE_ORDER[b]||9));
+  document.getElementById('chave-fbar').innerHTML=
+    `<button class="fb ${chaveFilter==='todos'?'active':''}" onclick="setChaveFilter('todos',this)">Todos</button>`+
+    fases.map(f=>`<button class="fb ${chaveFilter===f?'active':''}" onclick="setChaveFilter('${escH(f)}',this)">${FASE_LABEL[f]||f}</button>`).join('');
+}
+function setChaveFilter(f,btn){
+  chaveFilter=f;
+  document.querySelectorAll('#chave-fbar .fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); renderChave(false);
+}
+
+// ═══ MODAL JOGO DETAIL ═══
+function openJogo(id){
+  const j=cacheJogos.find(x=>x.id===id); if(!j) return;
+  const enc=isEnc(j), r=cacheResults[j.id];
+  const uid=currentUser?.id;
+  const flagA=getFlag(j.ta), nomA=stripFlag(j.ta);
+  const flagB=getFlag(j.tb), nomB=stripFlag(j.tb);
+  let placarHtml;
+  if(enc) placarHtml=`<div class="jresult" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--ouro);text-align:center;padding:8px 0">${r.a} × ${r.b}</div>`;
+  else placarHtml=`<div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--cinza);text-align:center;padding:12px 0">A JOGAR</div>`;
+
+  // palpites de todos
+  let prows='';
+  cacheUsers.forEach(u=>{
+    const p=cachePalpites[u.id+'_'+j.id]; if(!p) return;
+    let cls='ptnd',lbl='—';
+    if(enc&&r){const sc=calcPts(p.a,p.b,r.a,r.b);lbl=sc===5?'+5':sc===3?'+3':'0';cls=sc===5?'pt5':sc===3?'pt3':'pt0';}
+    prows+=`<div class="prow"><span>${u.emoji}</span><span class="puser">${escH(u.name)}</span><span class="pplc">${p.a} × ${p.b}</span><span class="ppts ${cls}">${lbl}</span></div>`;
+  });
+
+  // input palpite do usuario
+  let inputHtml='';
+  if(uid&&uid!=='__admin__'){
+    const p=cachePalpites[uid+'_'+j.id]||{a:0,b:0};
+    if(!enc&&!isBlocked(j)){
+      inputHtml=`<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--fumo)">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza);margin-bottom:6px">Seu palpite</div>
+        <div class="pinwrap"><input type="number" min="0" max="30" value="${p.a}" id="mj-a" class="pnum"><span class="psep">×</span><input type="number" min="0" max="30" value="${p.b}" id="mj-b" class="pnum"></div>
+        <button class="btn btn-p btn-block" onclick="savePalpiteModal('${uid}','${j.id}')">💾 Salvar Palpite</button>
+      </div>`;
+    } else if(cachePalpites[uid+'_'+j.id]){
+      const p2=cachePalpites[uid+'_'+j.id];
+      let sc2info='';
+      if(enc&&r){const sc=calcPts(p2.a,p2.b,r.a,r.b);sc2info=`<span class="${sc===5?'pt5':sc===3?'pt3':'pt0'}" style="font-family:'Bebas Neue',sans-serif;font-size:1rem"> ${sc===5?'+5':sc===3?'+3':'0'} pts</span>`;}
+      inputHtml=`<div style="text-align:center;padding:8px 0;border-top:1px solid var(--fumo);margin-top:8px;font-size:0.8rem;color:var(--cinza)">Seu palpite: <b style="color:var(--ouro)">${p2.a} × ${p2.b}</b>${sc2info}</div>`;
+    } else {
+      inputHtml=`<div class="plocked" style="border-top:1px solid var(--fumo);margin-top:8px;padding-top:8px">Palpite encerrado</div>`;
+    }
+  }
+
+  document.getElementById('mj-content').innerHTML=`
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--cinza);margin-bottom:8px">${FASE_LABEL[j.fase]||j.fase} · ${fmtDT(j)}</div>
+    <div class="jplacar" style="margin:8px 0">
+      <div class="jtime"><div class="jflag">${flagA}</div><div class="jnome">${escH(nomA)}</div></div>
+      <div class="jmid">${placarHtml}</div>
+      <div class="jtime"><div class="jflag">${flagB}</div><div class="jnome">${escH(nomB)}</div></div>
+    </div>
+    ${prows?`<div style="margin-top:4px">${prows}</div>`:''}
+    ${inputHtml}`;
+  document.getElementById('modal-jogo').style.display='block';
+}
+function closeMJ(){ document.getElementById('modal-jogo').style.display='none'; }
+
+function savePalpiteModal(uid,jid){
+  const j=cacheJogos.find(x=>x.id===jid);
+  if(j&&isBlocked(j)){toast('⏱ Jogo ja comecou!'); closeMJ(); return;}
+  const a=parseInt(document.getElementById('mj-a').value)||0;
+  const b=parseInt(document.getElementById('mj-b').value)||0;
+  db.collection('chb_palpites').doc(uid+'_'+jid).set({userId:uid,jogoId:jid,a,b,updatedAt:firebase.firestore.FieldValue.serverTimestamp()})
+    .then(()=>{toast('🎯 Palpite salvo!'); closeMJ();})
+    .catch(e=>toast('Erro: '+e.message));
+}
+
+// ═══ PALPITES PAGE ═══
+function renderPalpites(){
   const el=document.getElementById('palpites-list');
-  if (!currentUser||currentUser.id==='__admin__') {
-    el.innerHTML=`<div class="empty"><div class="ico">ð¯</div><p>Admin nÃ£o tem palpites.<br>Entre com um dos participantes.</p></div>`;return;
+  if(!currentUser||currentUser.id==='__admin__'){
+    el.innerHTML='<div class="empty"><div class="ico">🎯</div><p>Admin nao tem palpites.<br>Entre com um dos participantes.</p></div>'; return;
   }
   const uid=currentUser.id;
-  const abertos=JOGOS.filter(j=>!isBlocked(j)&&!isEncerrado(j));
-  const rodando=JOGOS.filter(j=>isBlocked(j)&&!isEncerrado(j));
-  const enc=JOGOS.filter(j=>isEncerrado(j));
+  const abertos=cacheJogos.filter(j=>!isBlocked(j)&&!isEnc(j));
+  const rodando=cacheJogos.filter(j=>isBlocked(j)&&!isEnc(j));
+  const enc=cacheJogos.filter(j=>isEnc(j));
   let html='';
-  if (abertos.length) {
-    html+=`<div class="sec">Abertos (${abertos.length})</div>`;
+  if(abertos.length){
+    html+=`<div class="sec">Abertos para palpite (${abertos.length})</div>`;
     abertos.forEach(j=>{
       const p=cachePalpites[uid+'_'+j.id]||{a:0,b:0};
-      const saved=cachePalpites[uid+'_'+j.id];
+      const saved=!!cachePalpites[uid+'_'+j.id];
       html+=`<div class="jcard">
-        <div class="jhead"><span class="jrodada">${escH(j.g)}</span><span class="jdt">${fmtDT(j)}</span></div>
+        <div class="jhead"><span class="jfase">${FASE_LABEL[j.fase]||j.fase}</span><span class="jdt">${fmtDT(j)}</span></div>
         <div class="jplacar">
           <div class="jtime"><div class="jflag">${getFlag(j.ta)}</div><div class="jnome">${escH(stripFlag(j.ta))}</div></div>
-          <div class="jmid">
-            <div class="pinwrap">
-              <input type="number" min="0" max="30" value="${p.a}" id="pa-${j.id}" class="pnum">
-              <span class="psep">Ã</span>
-              <input type="number" min="0" max="30" value="${p.b}" id="pb-${j.id}" class="pnum">
-            </div>
-            ${saved?`<div class="psaved">â Salvo</div>`:''}
-          </div>
+          <div class="jmid"><div class="pinwrap">
+            <input type="number" min="0" max="30" value="${p.a}" id="pa-${j.id}" class="pnum">
+            <span class="psep">×</span>
+            <input type="number" min="0" max="30" value="${p.b}" id="pb-${j.id}" class="pnum">
+          </div>${saved?'<div class="psaved">✔ Salvo</div>':''}</div>
           <div class="jtime"><div class="jflag">${getFlag(j.tb)}</div><div class="jnome">${escH(stripFlag(j.tb))}</div></div>
         </div>
-        <button class="btn btn-p btn-block" onclick="savePalpite('${uid}','${j.id}')">ð¾ Salvar</button>
+        <button class="btn btn-p btn-block" onclick="savePalpite('${uid}','${j.id}')">💾 Salvar</button>
       </div>`;
     });
   }
-  if (rodando.length) {
-    html+=`<div class="sec" style="margin-top:16px">Ao vivo â palpites fechados</div>`;
+  if(rodando.length){
+    html+=`<div class="sec" style="margin-top:16px">Ao vivo</div>`;
     rodando.forEach(j=>{
       const p=cachePalpites[uid+'_'+j.id];
       html+=`<div class="jcard locked">
-        <div class="jhead"><span class="jrodada">${escH(j.g)}</span><span class="jpill sp-l">ð´ Ao vivo</span></div>
+        <div class="jhead"><span class="jfase">${FASE_LABEL[j.fase]||j.fase}</span><span class="jpill sp-l">🔴 Ao vivo</span></div>
         <div class="jplacar">
           <div class="jtime"><div class="jflag">${getFlag(j.ta)}</div><div class="jnome">${escH(stripFlag(j.ta))}</div></div>
-          <div class="jmid">${p?`<div class="psaved" style="padding:8px 0">Meu palpite: ${p.a}Ã${p.b}</div>`:'<div class="plocked">Sem palpite</div>'}</div>
+          <div class="jmid">${p?`<div class="psaved" style="padding:8px 0">Meu palpite: ${p.a}×${p.b}</div>`:'<div class="plocked">Sem palpite</div>'}</div>
           <div class="jtime"><div class="jflag">${getFlag(j.tb)}</div><div class="jnome">${escH(stripFlag(j.tb))}</div></div>
         </div>
       </div>`;
     });
   }
-  if (enc.length) {
+  if(enc.length){
     html+=`<div class="sec" style="margin-top:16px">Encerrados (${enc.length})</div>`;
     enc.forEach(j=>{
-      const p=cachePalpites[uid+'_'+j.id];
-      const r=cacheResults[j.id];
+      const p=cachePalpites[uid+'_'+j.id], r=cacheResults[j.id];
       let pts='',pcls='ptnd';
-      if(p&&r){const sc=calcPts(p.a,p.b,r.a,r.b);pts=`${sc===5?'+5':sc===3?'+3':'0'} pts`;pcls=['pt0','pt0','','pt3','','pt5'][sc];}
-      html+=`<div class="jcard" style="opacity:.72">
-        <div class="jhead"><span class="jrodada">${escH(j.g)}</span><span class="jpill sp-d">â Encerrado</span></div>
+      if(p&&r){const sc=calcPts(p.a,p.b,r.a,r.b);pts=`${sc===5?'+5':sc===3?'+3':'0'} pts`;pcls=sc===5?'pt5':sc===3?'pt3':'pt0';}
+      html+=`<div class="jcard" style="opacity:.75">
+        <div class="jhead"><span class="jfase">${FASE_LABEL[j.fase]||j.fase}</span><span class="jpill sp-d">✔ Encerrado</span></div>
         <div class="jplacar">
           <div class="jtime"><div class="jflag">${getFlag(j.ta)}</div><div class="jnome">${escH(stripFlag(j.ta))}</div></div>
           <div class="jmid">
-            <div class="jresult">${r.a} Ã ${r.b}</div>
-            ${p?`<div style="font-size:.7rem;color:var(--cinza);text-align:center">Meu palpite: ${p.a}Ã${p.b}</div><div class="ppts ${pcls}" style="text-align:center;font-size:1rem;font-family:'Bebas Neue',sans-serif">${pts}</div>`:'<div style="font-size:.7rem;color:#8B5050;text-align:center">Sem palpite</div>'}
+            <div class="jresult">${r.a} × ${r.b}</div>
+            ${p?`<div style="font-size:.7rem;color:var(--cinza);text-align:center">Meu palpite: ${p.a}×${p.b}</div><div class="ppts ${pcls}" style="text-align:center;font-size:1rem;font-family:'Bebas Neue',sans-serif">${pts}</div>`:'<div style="font-size:.7rem;color:#8B5050;text-align:center">Sem palpite</div>'}
           </div>
           <div class="jtime"><div class="jflag">${getFlag(j.tb)}</div><div class="jnome">${escH(stripFlag(j.tb))}</div></div>
         </div>
       </div>`;
     });
   }
-  if (!html) html=`<div class="empty"><div class="ico">ð</div><p>Nenhum jogo disponÃ­vel.</p></div>`;
-  // Mata-a-Mata section
-  if (cacheMmJogos.length) {
-    html += '<div class="sec">Mata-a-Mata</div>';
-    cacheMmJogos.forEach(function(j) {
-      var enc = !!(cacheMmResults[j.id]);
-      var r   = cacheMmResults[j.id] || null;
-      var p   = cachePalpites[uid + '_mm_' + j.id];
-      html += '<div class="jcard' + (enc ? ' locked' : '') + '">';
-      html += '<div class="jhead"><span class="jrodada">' + escH(j.fase || 'Mata-a-Mata') + '</span>';
-      html += '<span class="jdt">' + fmtDT(j) + '</span>';
-      if (enc) { html += '<span class="jpill sp-d">Encerrado</span>'; }
-      else      { html += '<span class="jpill sp-l">Aberto</span>'; }
-      html += '</div>';
-      html += '<div class="jplacar">';
-      html += '<div class="jtime"><div class="jflag">' + getFlag(j.ta) + '</div>';
-      html += '<div class="jnome">' + escH(stripFlag(j.ta)) + '</div></div>';
-      html += '<div class="jmid">';
-      if (r) { html += '<div class="jresult">' + r.a + ' - ' + r.b + '</div>'; }
-      else    { html += '<div class="jvs">VS</div>'; }
-      html += '</div>';
-      html += '<div class="jtime"><div class="jflag">' + getFlag(j.tb) + '</div>';
-      html += '<div class="jnome">' + escH(stripFlag(j.tb)) + '</div></div>';
-      html += '</div>';
-      if (!enc) {
-        var va = p ? p.a : '', vb = p ? p.b : '';
-        html += '<div class="pinwrap">';
-        html += '<input class="pnum" id="mpa-' + j.id + '" type="number" min="0" max="20" value="' + va + '" placeholder="-">';
-        html += '<span class="psep">x</span>';
-        html += '<input class="pnum" id="mpb-' + j.id + '" type="number" min="0" max="20" value="' + vb + '" placeholder="-">';
-        html += '</div>';
-        html += '<button class="btn btn-p btn-block" onclick="saveMmPalpite(\'' + j.id + '\')">Salvar Palpite</button>';
-        if (p) { html += '<div class="psaved">Palpite: ' + p.a + ' x ' + p.b + '</div>'; }
-      } else if (p) {
-        var sc = r ? calcPts(p.a, p.b, r.a, r.b) : 0;
-        var cl = sc===5?'pt5':sc===3?'pt3':sc===1?'pt1':'pt0';
-        html += '<div class="prow"><span class="puser">Seu palpite:</span>';
-        html += '<span class="pplc">' + p.a + ' x ' + p.b + '</span>';
-        if (r) { html += '<span class="ppts ' + cl + '">' + sc + ' pts</span>'; }
-        html += '</div>';
-      } else {
-        html += '<div class="plocked">Prazo encerrado</div>';
-      }
-      html += '</div>';
-    });
-  }
+  if(!html) html='<div class="empty"><div class="ico">🎉</div><p>Nenhum jogo disponivel.</p></div>';
   el.innerHTML=html;
 }
-function savePalpite(uid, jogoId) {
-  if (isBlocked(JOGOS.find(j=>j.id===jogoId))) { toastMsg('â± Jogo jÃ¡ comeÃ§ou! Palpite bloqueado.'); return; }
-  const a=parseInt(document.getElementById('pa-'+jogoId).value)||0;
-  const b=parseInt(document.getElementById('pb-'+jogoId).value)||0;
-  const docId=uid+'_'+jogoId;
-  db.collection('chb_palpites').doc(docId).set({userId:uid, jogoId, a, b, updatedAt: firebase.firestore.FieldValue.serverTimestamp()})
-    .then(()=>toastMsg('ð¯ Palpite salvo!'))
-    .catch(e=>toastMsg('Erro: '+e.message));
+function savePalpite(uid,jid){
+  const j=cacheJogos.find(x=>x.id===jid);
+  if(j&&isBlocked(j)){toast('⏱ Jogo ja comecou! Palpite bloqueado.');return;}
+  const a=parseInt(document.getElementById('pa-'+jid).value)||0;
+  const b=parseInt(document.getElementById('pb-'+jid).value)||0;
+  db.collection('chb_palpites').doc(uid+'_'+jid).set({userId:uid,jogoId:jid,a,b,updatedAt:firebase.firestore.FieldValue.serverTimestamp()})
+    .then(()=>toast('🎯 Palpite salvo!'))
+    .catch(e=>toast('Erro: '+e.message));
 }
-function renderAdmin() {
-  renderAdminChips();
-  populateAdminJogoSelect();
-  populateAdmPalSelects();
-}
-function renderAdminChips() {
+
+// ═══ ADMIN ═══
+function renderAdmin(){ renderChips(); populateResSelect(); }
+function renderChips(){
   const el=document.getElementById('users-chips');
   el.innerHTML=cacheUsers.length
-    ? cacheUsers.map(u=>`<div class="chip"><span>${u.emoji}</span><span style="color:${u.color}">${escH(u.name)}</span><button onclick="removeUser('${u.id}')">â</button></div>`).join('')
-    : `<span style="color:var(--cinza);font-size:.8rem">Nenhum participante.</span>`;
+    ? cacheUsers.map(u=>`<div class="chip"><span>${u.emoji}</span><span style="color:${u.color}">${escH(u.name)}</span><button onclick="removeUser('${u.id}')">✕</button></div>`).join('')
+    : '<span style="color:var(--cinza);font-size:.8rem">Nenhum participante.</span>';
 }
-function addUser() {
+function addUser(){
   const n=document.getElementById('inp-uname').value.trim();
-  if (!n){toastMsg('Digite um nome!');return;}
-  if (cacheUsers.length>=10){toastMsg('MÃ¡ximo 10!');return;}
-  if (cacheUsers.find(u=>u.name.toLowerCase()===n.toLowerCase())){toastMsg('Nome jÃ¡ existe!');return;}
+  if(!n){toast('Digite um nome!');return;}
+  if(cacheUsers.length>=10){toast('Maximo 10!');return;}
+  if(cacheUsers.find(u=>u.name.toLowerCase()===n.toLowerCase())){toast('Nome ja existe!');return;}
   const idx=cacheUsers.length;
-  db.collection('chb_users').add({
-    name:n, color:PALETTES[idx%PALETTES.length], emoji:EMOJIS[idx%EMOJIS.length],
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(()=>{
-    document.getElementById('inp-uname').value='';
-    toastMsg('â '+n+' adicionado!');
-  }).catch(e=>toastMsg('Erro: '+e.message));
+  db.collection('chb_users').add({name:n,color:PALETTES[idx%PALETTES.length],emoji:EMOJIS[idx%EMOJIS.length],createdAt:firebase.firestore.FieldValue.serverTimestamp()})
+    .then(()=>{document.getElementById('inp-uname').value=''; toast('✅ '+n+' adicionado!');})
+    .catch(e=>toast('Erro: '+e.message));
 }
-function removeUser(id) {
-  showConfirm('Remover participante?','Todos os palpites dele serÃ£o apagados.',()=>{
+function removeUser(id){
+  showConfirm('Remover participante?','Todos os palpites dele serao apagados.',()=>{
     db.collection('chb_users').doc(id).delete();
     db.collection('chb_palpites').where('userId','==',id).get().then(snap=>{
-      const batch=db.batch();
-      snap.docs.forEach(d=>batch.delete(d.ref));
-      batch.commit();
-    });
-    toastMsg('Participante removido.');
+      const b=db.batch(); snap.docs.forEach(d=>b.delete(d.ref)); b.commit();
+    }); toast('Participante removido.');
   });
 }
-function populateAdminJogoSelect() {
-  const sel=document.getElementById('sel-jogo'); if(!sel)return;
+function addJogo(){
+  const ta=document.getElementById('mm-ta').value.trim();
+  const tb=document.getElementById('mm-tb').value.trim();
+  const fase=document.getElementById('mm-fase').value;
+  const dt=document.getElementById('mm-dt').value;
+  if(!ta||!tb){toast('Preencha os dois times!');return;}
+  if(!dt){toast('Informe data e horario!');return;}
+  db.collection('chb_jogos').add({ta,tb,fase,dt,createdAt:firebase.firestore.FieldValue.serverTimestamp()})
+    .then(()=>{
+      document.getElementById('mm-ta').value='';
+      document.getElementById('mm-tb').value='';
+      document.getElementById('mm-dt').value='';
+      toast('⚔️ Jogo cadastrado!');
+    }).catch(e=>toast('Erro: '+e.message));
+}
+function populateResSelect(){
+  const sel=document.getElementById('sel-res'); if(!sel) return;
   const cur=sel.value;
-  sel.innerHTML='<option value="">â Escolha um jogo â</option>';
-  JOGOS.forEach(j=>{
-    const done=cacheResults[j.id]?'â ':'';
-    sel.innerHTML+=`<option value="${j.id}">${done}${j.g}: ${stripFlag(j.ta)} Ã ${stripFlag(j.tb)} â ${fmtDT(j)}</option>`;
+  sel.innerHTML='<option value="">— Escolha —</option>';
+  const ordem=[...cacheJogos].sort((a,b)=>(FASE_ORDER[a.fase]||9)-(FASE_ORDER[b.fase]||9)||(a.dt||'').localeCompare(b.dt||''));
+  ordem.forEach(j=>{
+    const done=cacheResults[j.id]?'✔ ':'';
+    sel.innerHTML+=`<option value="${j.id}">${done}${j.fase}: ${stripFlag(j.ta)} × ${stripFlag(j.tb)}</option>`;
   });
   if(cur) sel.value=cur;
 }
-function previewJogo() {
-  const id=document.getElementById('sel-jogo').value;
-  const prev=document.getElementById('result-preview');
-  const j=JOGOS.find(x=>x.id===id);
+function previewRes(){
+  const id=document.getElementById('sel-res').value;
+  const prev=document.getElementById('res-preview');
+  const j=cacheJogos.find(x=>x.id===id);
   if(j){
-    document.getElementById('prev-a').textContent=j.ta;
-    document.getElementById('prev-b').textContent=j.tb;
+    document.getElementById('prev-ta').textContent=j.ta;
+    document.getElementById('prev-tb').textContent=j.tb;
     const r=cacheResults[id]||{a:0,b:0};
     document.getElementById('res-a').value=r.a;
     document.getElementById('res-b').value=r.b;
     prev.style.display='block';
   } else prev.style.display='none';
 }
-function saveResult() {
-  const id=document.getElementById('sel-jogo').value;
-  if(!id){toastMsg('Selecione um jogo!');return;}
+function saveRes(){
+  const id=document.getElementById('sel-res').value;
+  if(!id){toast('Selecione um jogo!');return;}
   const a=parseInt(document.getElementById('res-a').value)||0;
   const b=parseInt(document.getElementById('res-b').value)||0;
   db.collection('chb_results').doc(id).set({a,b,savedAt:firebase.firestore.FieldValue.serverTimestamp()})
-    .then(()=>toastMsg('â Resultado salvo! Ranking atualizado para todos.'))
-    .catch(e=>toastMsg('Erro: '+e.message));
+    .then(()=>toast('✅ Resultado salvo! Ranking atualizado.'))
+    .catch(e=>toast('Erro: '+e.message));
 }
-function changePw() {
+function changePw(){
   const np=document.getElementById('inp-newpw').value.trim();
-  if(!np){toastMsg('Senha em branco â mantida.');return;}
-  if(np.length<4){toastMsg('MÃ­nimo 4 caracteres!');return;}
+  if(!np){toast('Senha em branco — mantida.');return;}
+  if(np.length<4){toast('Minimo 4 caracteres!');return;}
   localStorage.setItem(ADMIN_PW_KEY,np);
   document.getElementById('inp-newpw').value='';
-  toastMsg('ð Senha atualizada!');
+  toast('🔑 Senha atualizada!');
 }
-function resetAll() {
-  showConfirm('Zerar tudo?','Apaga TODOS participantes, palpites e resultados no Firebase. Sem volta!',()=>{
-    const batch=db.batch();
+function resetAll(){
+  showConfirm('Zerar tudo?','Apaga TUDO no Firebase. Sem volta!',()=>{
     Promise.all([
       db.collection('chb_users').get(),
+      db.collection('chb_jogos').get(),
       db.collection('chb_palpites').get(),
       db.collection('chb_results').get()
-    ]).then(([u,p,r])=>{
-      [...u.docs,...p.docs,...r.docs].forEach(d=>batch.delete(d.ref));
-      return batch.commit();
-    }).then(()=>toastMsg('ð Dados zerados.'));
+    ]).then(snaps=>{
+      const b=db.batch();
+      snaps.forEach(s=>s.docs.forEach(d=>b.delete(d.ref)));
+      return b.commit();
+    }).then(()=>toast('🔄 Dados zerados.'));
   });
 }
-function getFlag(nome) {
-  const m=nome.match(/ï¿½[ï¿½-ï¿½]ï¿½[ï¿½-ï¿½]/u);
-  const m2=nome.match(/ð´[ó -ó ¿]+ó ¿/u);
-  if(m2) return m2[0]; if(m) return m[0]; return 'ð³ï¸';
+
+// ═══ USER DETAIL ═══
+function showUserDetail(uid){
+  const u=cacheUsers.find(x=>x.id===uid); if(!u) return;
+  const st=userStats(uid);
+  const list=cacheUsers.map(x=>({...x,...userStats(x.id)})).sort((a,b)=>b.pts-a.pts||b.ex-a.ex);
+  const pos=list.findIndex(x=>x.id===uid)+1;
+  const posColors=['#FFD700','#C0C0C0','#CD7F32'];
+  let prows='';
+  cacheJogos.forEach(j=>{
+    const p=cachePalpites[uid+'_'+j.id]; if(!p) return;
+    const r=cacheResults[j.id]; const enc=isEnc(j);
+    let cls='ptnd',lbl='';
+    if(enc&&r){const sc=calcPts(p.a,p.b,r.a,r.b);lbl=sc===5?'+5':sc===3?'+3':'0';cls=sc===5?'pt5':sc===3?'pt3':'pt0';}
+    prows+=`<div class="prow"><span>${getFlag(j.ta)}</span><span class="puser">${escH(stripFlag(j.ta))} × ${escH(stripFlag(j.tb))}</span><span class="pplc">${p.a}×${p.b}</span>${enc&&r?`<span class="ppts ${cls}">${lbl}</span>`:''}</div>`;
+  });
+  document.getElementById('mj-content').innerHTML=`
+    <div style="text-align:center;margin-bottom:12px">
+      <div style="font-size:2rem;margin-bottom:4px">${u.emoji}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--ouro)">${escH(u.name)}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--ouro);line-height:1">${st.pts} <span style="font-size:0.8rem;color:var(--cinza)">pts</span></div>
+      <div style="font-size:0.72rem;color:${posColors[pos-1]||'var(--cinza)'}">📍 ${pos}o lugar · ${st.ex} exatos · ${st.ac} acertos · ${st.jg} palpites</div>
+    </div>
+    <div style="border-top:1px solid var(--fumo);padding-top:10px">${prows||'<p style="text-align:center;color:var(--cinza);font-size:0.8rem">Nenhum palpite ainda</p>'}</div>`;
+  document.getElementById('modal-jogo').style.display='block';
 }
-function stripFlag(nome) {
-  return nome.replace(/ï¿½[ï¿½-ï¿½]ï¿½[ï¿½-ï¿½]/gu,'')
-             .replace(/ð´[ó -ó ¿]+ó ¿/gu,'').trim();
+
+// ═══ UTILS ═══
+function getFlag(nome){
+  if(!nome) return '🏳️';
+  const m2=nome.match(/\uD83C\uDFF4[\uDB40\uDC00-\uDB40\uDCFF]+\uDB40\uDC7F/u);
+  const m=nome.match(/\uD83C[\uDDE0-\uDDFF]\uD83C[\uDDE0-\uDDFF]/u);
+  if(m2) return m2[0]; if(m) return m[0]; return '🏳️';
 }
-function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function toastMsg(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
+function stripFlag(nome){
+  if(!nome) return '';
+  return nome.replace(/\uD83C[\uDDE0-\uDDFF]\uD83C[\uDDE0-\uDDFF]/gu,'')
+             .replace(/\uD83C\uDFF4[\uDB40\uDC00-\uDB40\uDCFF]+\uDB40\uDC7F/gu,'').trim();
 }
+function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 let _cb=null;
 function showConfirm(t,m,cb){
   document.getElementById('mc-title').textContent=t;
   document.getElementById('mc-msg').textContent=m;
-  _cb=cb;
-  document.getElementById('mc-ok').onclick=()=>{closeModal();if(_cb)_cb();};
+  _cb=cb; document.getElementById('mc-ok').onclick=()=>{closeModal();if(_cb)_cb();};
   document.getElementById('modal-confirm').classList.add('open');
 }
-function showUserBets(uid){const u=cacheUsers.find(x=>x.id===uid);if(!u)return;const stats=userStats(uid);document.getElementById('ubets-title').innerHTML=u.emoji+' '+escH(u.name);const list=cacheUsers.map(x=>({...x,...userStats(x.id)})).sort((a,b)=>b.pts-a.pts||b.ex-a.ex||b.ac-a.ac);const pos=list.findIndex(x=>x.id===uid)+1;const pc=['#FFD700','#C0C0C0','#CD7F32'];const posCol=pc[pos-1]||'var(--cinza)';document.getElementById('ubets-ranking').innerHTML='<div style="text-align:center;padding:8px 0;border-bottom:1px solid var(--fumo);margin-bottom:8px"><span style="font-family:Bebas Neue,sans-serif;font-size:2rem;color:var(--ouro)">'+stats.pts+'</span><span style="font-size:0.7rem;color:var(--cinza)"> pts</span>   <span style="font-family:Bebas Neue,sans-serif;font-size:1.1rem;color:'+posCol+'">#'+pos+'Âº</span>   <span style="font-size:0.72rem;color:var(--cinza)">'+stats.ex+' exatos Â· '+stats.ac+' acertos Â· '+stats.jg+' palpites</span></div>';let html='';JOGOS.forEach(j=>{const p=cachePalpites[uid+'_'+j.id];if(!p)return;const r=cacheResults[j.id];const enc=isEncerrado(j);let pts='',cls='ptnd';if(enc&&r){const sc=calcPts(p.a,p.b,r.a,r.b);pts=sc===5?'5':sc===3?'3':sc===1?'1':'0';cls=sc===5?'pt5':sc===3?'pt3':sc===1?'pt1':'pt0';}html+='<div class="prow"><span>'+getFlag(j.ta)+'</span><span class="puser">'+escH(stripFlag(j.ta))+' x '+escH(stripFlag(j.tb))+'</span><span class="pplc">'+p.a+' x '+p.b+'</span>'+(enc&&r?'<span class="ppts '+cls+'">'+pts+'</span>':'')+'</div>';});document.getElementById('ubets-list').innerHTML=html||'<p style="text-align:center;color:var(--cinza);font-size:0.8rem">Nenhum palpite ainda</p>';document.getElementById('modal-userbets').style.display='block';}
-function closeUserBets(){document.getElementById('modal-userbets').style.display='none';}
-function adminSavePalpiteManual(){if(!isAdmin)return;const uid=document.getElementById('adm-pal-user').value;const jid=document.getElementById('adm-pal-jogo').value;const a=parseInt(document.getElementById('adm-pal-a').value)||0;const b=parseInt(document.getElementById('adm-pal-b').value)||0;const msg=document.getElementById('adm-pal-msg');if(!uid||!jid){msg.style.color='#FF5252';msg.textContent='Selecione participante e jogo!';return;}db.collection('chb_palpites').doc(uid+'_'+jid).set({userId:uid,jogoId:jid,a,b,savedAt:firebase.firestore.FieldValue.serverTimestamp()}).then(()=>{msg.style.color='#4CAF50';msg.textContent='Palpite salvo!';setTimeout(()=>msg.textContent='',3000);}).catch(e=>{msg.style.color='#FF5252';msg.textContent='Erro: '+e.message;});}
-function populateAdmPalSelects(){if(!isAdmin)return;const uSel=document.getElementById('adm-pal-user');const jSel=document.getElementById('adm-pal-jogo');if(!uSel||!jSel)return;uSel.innerHTML='<option value="">-- Participante --</option>'+cacheUsers.map(u=>'<option value="'+u.id+'">'+u.emoji+' '+escH(u.name)+'</option>').join('');jSel.innerHTML='<option value="">-- Jogo --</option>'+JOGOS.map(j=>'<option value="'+j.id+'">'+j.id+': '+escH(stripFlag(j.ta))+' x '+escH(stripFlag(j.tb))+'</option>').join('');}
-function saveMmJogo() {
-  var ta   = document.getElementById('mm-ta').value.trim();
-  var tb   = document.getElementById('mm-tb').value.trim();
-  var dt   = document.getElementById('mm-dt').value;
-  var fase = document.getElementById('mm-fase').value.trim() || 'Mata-a-Mata';
-  if (!ta || !tb || !dt) { toastMsg('Preencha Time A, Time B e Data/Hora!'); return; }
-  var id = 'mm_' + Date.now();
-  db.collection('chb_mm').doc(id).set({ ta: ta, tb: tb, dt: dt, fase: fase, criadoEm: firebase.firestore.FieldValue.serverTimestamp() })
-    .then(function() {
-      toastMsg('Jogo adicionado!');
-      document.getElementById('mm-ta').value = '';
-      document.getElementById('mm-tb').value = '';
-      document.getElementById('mm-dt').value = '';
-      document.getElementById('mm-fase').value = '';
-    })
-    .catch(function(e) { toastMsg('Erro: ' + e.message); });
-}
-function renderMmAdmin() {
-  var el = document.getElementById('mm-jogos-admin');
-  if (!el) return;
-  var sel = document.getElementById('sel-mm-jogo');
-  if (sel) {
-    var cur = sel.value;
-    sel.innerHTML = '<option value="">Escolha um jogo MM</option>' +
-      cacheMmJogos.map(function(j) {
-        var done = cacheMmResults[j.id];
-        return '<option value="' + j.id + '">' + (done ? '[OK] ' : '') + escH(stripFlag(j.ta)) + ' x ' + escH(stripFlag(j.tb)) + ' (' + escH(j.fase || 'MM') + ')</option>';
-      }).join('');
-    if (cur) sel.value = cur;
-  }
-  if (!cacheMmJogos.length) {
-    el.innerHTML = '<p style="color:var(--cinza);font-size:.8rem">Nenhum jogo cadastrado.</p>';
-    return;
-  }
-  el.innerHTML = cacheMmJogos.map(function(j) {
-    var done = cacheMmResults[j.id];
-    return '<div class="ptrow"><span class="l">' + escH(j.fase || 'MM') + ': ' + escH(stripFlag(j.ta)) + ' x ' + escH(stripFlag(j.tb)) + '</span>' +
-      (done ? '<span style="color:#4CAF50">' + done.a + '-' + done.b + '</span>' : '<span style="color:var(--cinza)">sem resultado</span>') +
-      '<button class="btn btn-d" style="padding:4px 8px;font-size:.7rem" onclick="deleteMmJogo(\'' + j.id + '\')">X</button></div>';
-  }).join('');
-}
-function previewMmJogo() {
-  var id   = document.getElementById('sel-mm-jogo').value;
-  var prev = document.getElementById('mm-result-preview');
-  var j    = cacheMmJogos.filter(function(x){ return x.id === id; })[0];
-  if (j) {
-    document.getElementById('mm-prev-a').textContent = getFlag(j.ta) + ' ' + escH(stripFlag(j.ta));
-    document.getElementById('mm-prev-b').textContent = getFlag(j.tb) + ' ' + escH(stripFlag(j.tb));
-    var r = cacheMmResults[id] || { a: 0, b: 0 };
-    document.getElementById('mm-res-a').value = r.a;
-    document.getElementById('mm-res-b').value = r.b;
-    prev.style.display = 'block';
-  } else { prev.style.display = 'none'; }
-}
-function saveMmResult() {
-  var id = document.getElementById('sel-mm-jogo').value;
-  if (!id) { toastMsg('Selecione um jogo MM!'); return; }
-  var a = parseInt(document.getElementById('mm-res-a').value) || 0;
-  var b = parseInt(document.getElementById('mm-res-b').value) || 0;
-  db.collection('chb_mm_results').doc(id).set({ a: a, b: b, savedAt: firebase.firestore.FieldValue.serverTimestamp() })
-    .then(function() { toastMsg('Resultado MM salvo!'); })
-    .catch(function(e) { toastMsg('Erro: ' + e.message); });
-}
-function saveMmPalpite(jid) {
-  if (!currentUser || currentUser.id === '__admin__') return;
-  var a = parseInt(document.getElementById('mpa-' + jid).value);
-  var b = parseInt(document.getElementById('mpb-' + jid).value);
-  if (isNaN(a) || isNaN(b)) { toastMsg('Preencha o placar!'); return; }
-  var key = currentUser.id + '_mm_' + jid;
-  db.collection('chb_palpites').doc(key).set({
-    userId: currentUser.id, jogoId: 'mm_' + jid, a: a, b: b,
-    savedAt: firebase.firestore.FieldValue.serverTimestamp()
-  })
-    .then(function() { toastMsg('Palpite MM salvo!'); })
-    .catch(function(e) { toastMsg('Erro: ' + e.message); });
-}
-function deleteMmJogo(id) {
-  showConfirm('Remover jogo?', 'Remove o jogo. Palpites nao sao apagados.', function() {
-    db.collection('chb_mm').doc(id).delete()
-      .then(function() { toastMsg('Jogo removido.'); })
-      .catch(function(e) { toastMsg('Erro: ' + e.message); });
-  });
-}
-
 function closeModal(){document.getElementById('modal-confirm').classList.remove('open')}
 </script>
 </body>
